@@ -1,7 +1,39 @@
 @import 'tailwindcss';
 
+html {
+    scroll-behavior: smooth;
+    background: #020609;
+}
+
 body {
-    background-color: #1a1a1a
+    margin: 0;
+    min-width: 320px;
+    background: #020609;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    color: #020609;
+    background: #22d3ee;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020609;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.35);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.65);
 }
 
 .clip-button {
@@ -12,5 +44,16 @@ body {
         100% 100%,
         10% 100%,
         0 70%
+    );
+}
+
+.module-card {
+    clip-path: polygon(
+        0 0,
+        calc(100% - 18px) 0,
+        100% 18px,
+        100% 100%,
+        18px 100%,
+        0 calc(100% - 18px)
     );
 }
