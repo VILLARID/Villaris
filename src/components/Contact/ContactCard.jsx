@@ -1,57 +1,130 @@
-function ContactCard({ href, label, accent = "cyan", download = false, children }) {
-    const accentStyles = {
-        cyan: {
-            icon: "text-cyan-400",
-            border: "hover:border-cyan-400/40",
-            glow: "hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]",
-            line: "group-hover:bg-cyan-400/50",
-        },
-        purple: {
-            icon: "text-purple-500",
-            border: "hover:border-purple-500/40",
-            glow: "hover:shadow-[0_0_30px_rgba(168,85,247,0.08)]",
-            line: "group-hover:bg-purple-500/50",
-        },
-        emerald: {
-            icon: "text-emerald-400",
-            border: "hover:border-emerald-400/40",
-            glow: "hover:shadow-[0_0_30px_rgba(52,211,153,0.08)]",
-            line: "group-hover:bg-emerald-400/50",
-        },
-        white: {
-            icon: "text-slate-300",
-            border: "hover:border-slate-300/40",
-            glow: "hover:shadow-[0_0_30px_rgba(226,232,240,0.06)]",
-            line: "group-hover:bg-slate-300/50",
-        },
-    };
+import { motion } from "framer-motion";
 
-    const styles = accentStyles[accent] || accentStyles.cyan;
-    const isExternal = href?.startsWith("http");
+const accentStyles = {
+  cyan: {
+    icon: "text-cyan-400",
+    border: "hover:border-cyan-400/40",
+    glow: "hover:shadow-[0_0_40px_rgba(34,211,238,0.1)]",
+    line: "group-hover:bg-cyan-400/50",
+    dot: "bg-cyan-400",
+  },
+  purple: {
+    icon: "text-purple-400",
+    border: "hover:border-purple-400/40",
+    glow: "hover:shadow-[0_0_40px_rgba(168,85,247,0.1)]",
+    line: "group-hover:bg-purple-400/50",
+    dot: "bg-purple-400",
+  },
+  emerald: {
+    icon: "text-emerald-400",
+    border: "hover:border-emerald-400/40",
+    glow: "hover:shadow-[0_0_40px_rgba(52,211,153,0.1)]",
+    line: "group-hover:bg-emerald-400/50",
+    dot: "bg-emerald-400",
+  },
+  white: {
+    icon: "text-slate-300",
+    border: "hover:border-slate-300/40",
+    glow: "hover:shadow-[0_0_40px_rgba(226,232,240,0.08)]",
+    line: "group-hover:bg-slate-300/50",
+    dot: "bg-slate-300",
+  },
+};
 
-    return (
-        <a
-            href={href}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noreferrer" : undefined}
-            download={download || undefined}
-            className={`contact-card group relative flex h-[105px] min-w-0 flex-col items-center justify-center overflow-hidden border border-slate-800/80 bg-[#09111e] transition duration-300 hover:-translate-y-1 hover:bg-[#0b1524] ${styles.border} ${styles.glow}`}
-        >
-            <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.012)_0px,rgba(255,255,255,0.012)_1px,transparent_1px,transparent_4px)] opacity-30" />
+function ContactCard({ href, label, accent = "cyan", download = false, children, index = 0 }) {
+  const styles = accentStyles[accent] || accentStyles.cyan;
+  const isExternal = href?.startsWith("http");
 
-            <div className={`relative z-10 transition duration-300 group-hover:scale-110 ${styles.icon}`}>
-                {children}
-            </div>
+  return (
+    <motion.a
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
+      download={download || undefined}
+      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        delay: 0.1 * index + 0.3,
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{
+        y: -6,
+        scale: 1.04,
+        borderColor: "rgba(255,255,255,0.2)",
+        transition: { duration: 0.2 },
+      }}
+      whileTap={{ scale: 0.95 }}
+      className={`contact-card group relative flex h-[110px] min-w-0 flex-col items-center justify-center overflow-hidden border border-slate-800/60 bg-gradient-to-br from-[#09111e] to-[#0a1422] transition-all duration-300 ${styles.border} ${styles.glow}`}
+    >
+      {/* Scanlines */}
+      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.012)_0px,rgba(255,255,255,0.012)_1px,transparent_1px,transparent_4px)] opacity-30" />
 
-            <span className="relative z-10 mt-3 text-[9px] font-bold uppercase tracking-[0.25em] text-slate-600 transition group-hover:text-slate-300">
-                {label}
-            </span>
+      {/* Brillo de fondo en hover */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${
+            accent === "cyan" ? "rgba(34,211,238,0.04)" :
+            accent === "purple" ? "rgba(168,85,247,0.04)" :
+            accent === "emerald" ? "rgba(52,211,153,0.04)" :
+            "rgba(226,232,240,0.03)"
+          }, transparent 70%)`,
+        }}
+      />
 
-            <span className={`absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-slate-700 transition-all duration-300 group-hover:w-2/3 ${styles.line}`} />
+      {/* Punto decorativo superior */}
+      <motion.span
+        animate={{
+          scale: [1, 1.4, 1],
+          opacity: [0.5, 1, 0.5],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.2,
+        }}
+        className={`absolute left-3 top-3 h-1.5 w-1.5 rounded-full ${styles.dot} opacity-50`}
+      />
 
-            <span className="absolute right-0 top-0 h-4 w-4 bg-[#020609] [clip-path:polygon(100%_0,100%_100%,0_0)]" />
-        </a>
-    );
+      {/* Icono */}
+      <motion.div
+        whileHover={{ rotate: [0, -10, 10, -5, 5, 0] }}
+        transition={{ duration: 0.6 }}
+        className={`relative z-10 transition-all duration-300 group-hover:scale-110 ${styles.icon}`}
+      >
+        {children}
+      </motion.div>
+
+      {/* Label */}
+      <span className="relative z-10 mt-3 text-[9px] font-bold uppercase tracking-[0.25em] text-slate-500 transition-colors duration-300 group-hover:text-slate-300">
+        {label}
+      </span>
+
+      {/* Línea inferior animada */}
+      <motion.span
+        initial={{ width: 0 }}
+        animate={{ width: "66%" }}
+        transition={{ duration: 0.6, delay: 0.1 * index + 0.4 }}
+        className={`absolute bottom-0 left-1/2 h-px -translate-x-1/2 bg-slate-700 transition-all duration-300 group-hover:bg-${accent}-400/50 ${styles.line}`}
+      />
+
+      {/* Esquina recortada */}
+      <div className="pointer-events-none absolute right-0 top-0 h-5 w-5 bg-gradient-to-bl from-[#020609] to-transparent [clip-path:polygon(100%_0,100%_100%,0_0)]" />
+
+      {/* Efecto de borde en hover */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: `conic-gradient(from 0deg, transparent, ${accent === "cyan" ? "rgba(34,211,238,0.1)" :
+            accent === "purple" ? "rgba(168,85,247,0.1)" :
+              accent === "emerald" ? "rgba(52,211,153,0.1)" :
+                "rgba(226,232,240,0.05)"}, transparent)`,
+        }}
+      />
+    </motion.a>
+  );
 }
 
 export default ContactCard;
