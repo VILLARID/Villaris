@@ -20,9 +20,11 @@ const staggerContainer = {
 
 function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020609] font-mono text-white">
+    <section id="home" className="relative min-h-screen overflow-hidden bg-[#020609] font-mono text-white">
+      {/* Fondo cuadriculado */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(0,180,220,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,180,220,0.05)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
+      {/* Línea superior */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
@@ -30,6 +32,7 @@ function Home() {
         className="absolute left-0 top-24 h-px w-full origin-left bg-cyan-950/40"
       />
 
+      {/* Brillos */}
       <motion.div
         animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -41,12 +44,14 @@ function Home() {
         className="pointer-events-none absolute right-[10%] top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-purple-500/5 blur-[140px]"
       />
 
+      {/* Contenido principal */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
         className="relative z-10 mx-auto grid min-h-screen w-full max-w-[1700px] grid-cols-1 items-center gap-16 px-6 py-10 sm:px-10 md:px-16 lg:grid-cols-[minmax(0,1fr)_minmax(400px,530px)] lg:gap-12 lg:px-16 xl:gap-20 xl:px-24 2xl:px-32"
       >
+        {/* COLUMNA IZQUIERDA */}
         <section className="w-full min-w-0">
           <motion.p
             variants={fadeInUp}
@@ -122,6 +127,7 @@ function Home() {
           </motion.div>
         </section>
 
+        {/* COLUMNA DERECHA */}
         <motion.aside
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -131,7 +137,7 @@ function Home() {
           <IdentityCard />
         </motion.aside>
       </motion.div>
-    </main>
+    </section>
   );
 }
 

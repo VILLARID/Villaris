@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import ContactCard from "../components/Contact/ContactCard";
+import cv from "../assets/cv_farid_fullstack_developer_2026.pdf";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -142,19 +143,19 @@ function SystemReady() {
           variants={fadeInUp}
           className="mt-14 grid w-full max-w-[720px] grid-cols-2 gap-3 sm:grid-cols-4"
         >
-          <ContactCard href="https://github.com/SU-USUARIO" label="GitHub" accent="white" index={0}>
+          <ContactCard href="https://github.com/VILLARID" label="GitHub" accent="white" index={0}>
             <GithubIcon />
           </ContactCard>
 
-          <ContactCard href="https://www.linkedin.com/in/SU-USUARIO" label="LinkedIn" accent="cyan" index={1}>
+          <ContactCard href="https://www.linkedin.com/in/farid-matos-villarroel-1274a9408/" label="LinkedIn" accent="cyan" index={1}>
             <LinkedinIcon />
           </ContactCard>
 
-          <ContactCard href="mailto:correo@ejemplo.com" label="Email" accent="purple" index={2}>
+          <ContactCard href={"https://mail.google.com/mail/u/1/#inbox"} label="Email" accent="purple" index={2}>
             <MailIcon />
           </ContactCard>
 
-          <ContactCard href="/Farid-Matos-CV.pdf" label="CV.PDF" accent="emerald" download index={3}>
+          <ContactCard href={cv} label="CV.PDF" accent="emerald" download index={3}>
             <FileIcon />
           </ContactCard>
         </motion.div>
