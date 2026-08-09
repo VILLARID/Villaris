@@ -1,0 +1,187 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { Braces, Cpu, Database, Boxes, ShieldCheck, Gauge, CloudUpload } from "lucide-react";
+import ModuleCard from "./ModuleCard";
+import PrincipleItem from "./PrincipleItem";
+
+const modules = [
+  {
+    moduleId: "MOD_001",
+    title: "FRONTEND MODULE",
+    technologies: ["React", "Tailwind CSS", "Bootstrap", "Figma"],
+    icon: Braces,
+    accent: "blue",
+    description: "Interfaces modernas, accesibles y orientadas al usuario.",
+  },
+  {
+    moduleId: "MOD_002",
+    title: "BACKEND MODULE",
+    technologies: ["Node.js", "Python", "Java", "Spring Boot"],
+    icon: Cpu,
+    accent: "violet",
+    description: "APIs robustas, seguras y preparadas para escalar.",
+  },
+  {
+    moduleId: "MOD_003",
+    title: "DATABASE MODULE",
+    technologies: ["PostgreSQL", "Oracle", "MongoDB", "Redis"],
+    icon: Database,
+    accent: "emerald",
+    description: "Almacenamiento, integridad y rendimiento optimizado.",
+  },
+];
+
+const principles = [
+  {
+    title: "ARQUITECTURA MODULAR",
+    description:
+      "Componentes desacoplados que permiten escalar y evolucionar sin comprometer el sistema.",
+    icon: Boxes,
+  },
+  {
+    title: "SEGURIDAD POR DISEÑO",
+    description:
+      "Buenas prácticas de seguridad aplicadas en cada módulo desde el inicio.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "RENDIMIENTO OPTIMIZADO",
+    description:
+      "Tecnologías y patrones elegidos para ofrecer velocidad, estabilidad y eficiencia.",
+    icon: Gauge,
+  },
+  {
+    title: "DESPLIEGUE CONTINUO",
+    description:
+      "Procesos automatizados para entregar valor de forma rápida y confiable.",
+    icon: CloudUpload,
+  },
+];
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+};
+
+function fadeUp(y = 12, delay = 0, reduce = false) {
+  return {
+    hidden: { opacity: 0, y: reduce ? 0 : y },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
+    },
+  };
+}
+
+function CoreSystem() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <section
+      id="core-system"
+      className="relative overflow-hidden bg-white pb-24 pt-32"
+    >
+      {/* Fondo: grid fino + radial azul */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="pointer-events-none absolute -left-48 -top-48 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.04),transparent_70%)]" />
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={container}
+        className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]"
+      >
+        {/* Header / intro */}
+        <div className="max-w-[900px]">
+          {/* Section label */}
+          <motion.div
+            variants={fadeUp(8, 0.05, shouldReduceMotion)}
+            className="flex items-center gap-4"
+          >
+            <span className="text-[11px] font-bold tracking-[0.14em] text-[#2563EB]">
+              01 /
+            </span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.11em] text-[#64748B]">
+              CORE SYSTEM
+            </span>
+            <span
+              aria-hidden="true"
+              className="h-px w-[42px] bg-[#2563EB] opacity-50"
+            />
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h2
+            variants={fadeUp(16, 0.12, shouldReduceMotion)}
+            className="mt-6 text-[clamp(3rem,14vw,4.8rem)] font-bold leading-[0.94] tracking-[-0.045em] text-[#0F172A] sm:text-[clamp(4rem,5.6vw,6.6rem)]"
+          >
+            CORE SYSTEM
+          </motion.h2>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={fadeUp(10, 0.2, shouldReduceMotion)}
+            className="mt-5 text-[clamp(1.2rem,4.5vw,2.4rem)] font-medium tracking-[0.12em] text-[#2563EB] sm:tracking-[0.22em] lg:text-[clamp(1.4rem,2.2vw,2.4rem)]"
+          >
+            TECHNOLOGY ECOSYSTEM
+          </motion.p>
+
+          {/* Status line */}
+          <motion.div
+            variants={fadeUp(8, 0.26, shouldReduceMotion)}
+            className="mt-4 flex items-center gap-2"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
+            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#94A3B8]">
+              OPERATIONAL MODULES / ACTIVE DEPLOYMENT
+            </span>
+          </motion.div>
+
+          {/* Intro copy */}
+          <motion.p
+            variants={fadeUp(10, 0.32, shouldReduceMotion)}
+            className="mt-7 max-w-[620px] text-[16px] leading-[1.7] text-[#64748B] sm:text-[17px]"
+          >
+            Este es el ecosistema tecnológico que utilizo para diseñar,
+            desarrollar, desplegar y mantener sistemas confiables, escalables y
+            eficientes.
+          </motion.p>
+        </div>
+
+        {/* Modules grid */}
+        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+          {modules.map((module, index) => (
+            <ModuleCard
+              key={module.moduleId}
+              moduleId={module.moduleId}
+              title={module.title}
+              technologies={module.technologies}
+              icon={module.icon}
+              accent={module.accent}
+              description={module.description}
+              index={index}
+            />
+          ))}
+        </div>
+
+        {/* Principles strip */}
+        <motion.div
+          variants={fadeUp(12, 0.3, shouldReduceMotion)}
+          className="mt-7 grid grid-cols-1 gap-y-8 rounded-[18px] border border-[#E2E8F0] bg-white p-7 sm:p-8 lg:grid-cols-4 lg:gap-y-0 lg:divide-x lg:divide-[#E2E8F0]"
+        >
+          {principles.map((principle) => (
+            <div key={principle.title} className="lg:px-6 lg:first:pl-0 lg:last:pr-0">
+              <PrincipleItem {...principle} />
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+export default CoreSystem;

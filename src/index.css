@@ -44,17 +44,6 @@ a {
     background: rgba(34, 211, 238, 0.6);
 }
 
-.module-card {
-    clip-path: polygon(
-        0 0,
-        calc(100% - 18px) 0,
-        100% 18px,
-        100% 100%,
-        18px 100%,
-        0 calc(100% - 18px)
-    );
-}
-
 .contact-card {
     clip-path: polygon(
         0 0,
