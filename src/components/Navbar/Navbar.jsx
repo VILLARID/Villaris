@@ -1,0 +1,170 @@
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Menu, X } from "lucide-react";
+
+const NAV_ITEMS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "core-system", label: "Core" },
+  { id: "project-archive", label: "Projects" },
+  { id: "system-ready", label: "Contact" },
+];
+
+function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+
+      const offset = window.scrollY + 140;
+      let current = "home";
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top + window.scrollY <= offset) {
+          current = item.id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleNavigate = () => setIsMenuOpen(false);
+
+  return (
+    <header className="fixed inset-x-0 top-4 z-50">
+      <div
+        className={`mx-6 flex h-[68px] items-center justify-between rounded-[20px] border px-5 transition-all duration-300 sm:px-6 ${
+          isScrolled
+            ? "border-slate-900/10 bg-white/90 shadow-[0_8px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl"
+            : "border-slate-900/5 bg-white/70 shadow-[0_1px_2px_rgba(15,23,42,0.02)] backdrop-blur-md"
+        }`}
+      >
+        {/* Logo */}
+        <a
+          href="#home"
+          onClick={handleNavigate}
+          aria-label="VILLARIS — Inicio"
+          className="group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md"
+        >
+          <span className="text-lg font-bold uppercase tracking-[0.16em] text-[#0B1220]">
+            VILLARIS
+          </span>
+          <span className="h-[5px] w-[5px] rounded-full bg-[#2563EB] transition-all duration-300 group-hover:opacity-75 group-hover:shadow-[0_0_8px_rgba(37,99,235,0.45)]" />
+        </a>
+
+        {/* Navegación desktop */}
+        <nav
+          aria-label="Navegación principal"
+          className="hidden items-center gap-7 md:flex lg:gap-9"
+        >
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={handleNavigate}
+                aria-current={isActive ? "true" : undefined}
+                className={`relative flex h-10 items-center rounded-md text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
+                  isActive
+                    ? "font-semibold text-[#0F172A]"
+                    : "text-[#64748B] hover:text-[#0F172A]"
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-indicator"
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-5 rounded-full bg-[#2563EB]"
+                  />
+                )}
+              </a>
+            );
+          })}
+        </nav>
+
+        {/* CTA desktop */}
+        <a
+          href="#system-ready"
+          onClick={handleNavigate}
+          className="group hidden h-10 items-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:inline-flex"
+        >
+          Get in touch
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
+        </a>
+
+        {/* Botón hamburguesa */}
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+          className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#E2E8F0] bg-white text-[#0F172A] transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 md:hidden"
+        >
+          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Menú móvil */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            id="mobile-menu"
+            aria-label="Menú móvil"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="mx-6 mt-2 overflow-hidden rounded-[16px] border border-slate-900/10 bg-white p-2 shadow-[0_8px_30px_rgba(15,23,42,0.06)] md:hidden"
+          >
+            <ul className="flex flex-col">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      onClick={handleNavigate}
+                      aria-current={isActive ? "true" : undefined}
+                      className={`flex items-center justify-between rounded-xl px-4 py-3 text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
+                        isActive
+                          ? "font-semibold text-[#0F172A]"
+                          : "text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A]"
+                      }`}
+                    >
+                      {item.label}
+                      {isActive && (
+                        <span className="h-[6px] w-[6px] rounded-full bg-[#2563EB]" />
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="p-2 pt-1">
+              <a
+                href="#system-ready"
+                onClick={handleNavigate}
+                className="group flex h-11 items-center justify-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+              >
+                Get in touch
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+export default Navbar;
