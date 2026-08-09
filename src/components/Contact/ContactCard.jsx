@@ -1,129 +1,112 @@
 import { motion } from "framer-motion";
+import { ArrowRight, Mail } from "lucide-react";
 
-const accentStyles = {
-  cyan: {
-    icon: "text-cyan-400",
-    border: "hover:border-cyan-400/40",
-    glow: "hover:shadow-[0_0_40px_rgba(34,211,238,0.1)]",
-    line: "group-hover:bg-cyan-400/50",
-    dot: "bg-cyan-400",
-  },
-  purple: {
-    icon: "text-purple-400",
-    border: "hover:border-purple-400/40",
-    glow: "hover:shadow-[0_0_40px_rgba(168,85,247,0.1)]",
-    line: "group-hover:bg-purple-400/50",
-    dot: "bg-purple-400",
-  },
-  emerald: {
-    icon: "text-emerald-400",
-    border: "hover:border-emerald-400/40",
-    glow: "hover:shadow-[0_0_40px_rgba(52,211,153,0.1)]",
-    line: "group-hover:bg-emerald-400/50",
-    dot: "bg-emerald-400",
-  },
-  white: {
-    icon: "text-slate-300",
-    border: "hover:border-slate-300/40",
-    glow: "hover:shadow-[0_0_40px_rgba(226,232,240,0.08)]",
-    line: "group-hover:bg-slate-300/50",
-    dot: "bg-slate-300",
-  },
-};
+function GithubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.3 4 5 5 0 0 0 19.1.5S17.9.1 15 2a13.4 13.4 0 0 0-6 0C6.1.1 4.9.5 4.9.5A5 5 0 0 0 4.7 4a5.4 5.4 0 0 0-1.5 3.7c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 9 18v4" />
+      <path d="M9 18c-4.5 2-5-2-7-2" />
+    </svg>
+  );
+}
 
-function ContactCard({ href, label, accent = "cyan", download = false, children, index = 0 }) {
-  const styles = accentStyles[accent] || accentStyles.cyan;
+function LinkedinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function ContactRow({ icon, label, value, href, accent = "blue" }) {
   const isExternal = href?.startsWith("http");
+  const iconColor = accent === "github" ? "text-[#0F172A]" : "text-[#2563EB]";
 
   return (
-    <motion.a
+    <a
       href={href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      download={download || undefined}
-      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        delay: 0.1 * index + 0.3,
-        duration: 0.4,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      whileHover={{
-        y: -6,
-        scale: 1.04,
-        borderColor: "rgba(255,255,255,0.2)",
-        transition: { duration: 0.2 },
-      }}
-      whileTap={{ scale: 0.95 }}
-      className={`contact-card group relative flex h-[110px] min-w-0 flex-col items-center justify-center overflow-hidden border border-slate-800/60 bg-gradient-to-br from-[#09111e] to-[#0a1422] transition-all duration-300 ${styles.border} ${styles.glow}`}
+      className="group flex items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg"
     >
-      {/* Scanlines */}
-      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.012)_0px,rgba(255,255,255,0.012)_1px,transparent_1px,transparent_4px)] opacity-30" />
-
-      {/* Brillo de fondo en hover */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, ${
-            accent === "cyan" ? "rgba(34,211,238,0.04)" :
-            accent === "purple" ? "rgba(168,85,247,0.04)" :
-            accent === "emerald" ? "rgba(52,211,153,0.04)" :
-            "rgba(226,232,240,0.03)"
-          }, transparent 70%)`,
-        }}
-      />
-
-      {/* Punto decorativo superior */}
-      <motion.span
-        animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: index * 0.2,
-        }}
-        className={`absolute left-3 top-3 h-1.5 w-1.5 rounded-full ${styles.dot} opacity-50`}
-      />
-
-      {/* Icono */}
-      <motion.div
-        whileHover={{ rotate: [0, -10, 10, -5, 5, 0] }}
-        transition={{ duration: 0.6 }}
-        className={`relative z-10 transition-all duration-300 group-hover:scale-110 ${styles.icon}`}
-      >
-        {children}
-      </motion.div>
-
-      {/* Label */}
-      <span className="relative z-10 mt-3 text-[9px] font-bold uppercase tracking-[0.25em] text-slate-500 transition-colors duration-300 group-hover:text-slate-300">
-        {label}
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F8FAFC] ${iconColor}`}>
+        {icon}
       </span>
+      <span className="min-w-0">
+        <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+          {label}
+        </span>
+        <span className="mt-0.5 block truncate text-[14px] font-semibold text-[#0F172A] transition-colors duration-200 group-hover:text-[#2563EB]">
+          {value}
+        </span>
+      </span>
+    </a>
+  );
+}
 
-      {/* Línea inferior animada */}
-      <motion.span
-        initial={{ width: 0 }}
-        animate={{ width: "66%" }}
-        transition={{ duration: 0.6, delay: 0.1 * index + 0.4 }}
-        className={`absolute bottom-0 left-1/2 h-px -translate-x-1/2 bg-slate-700 transition-all duration-300 group-hover:bg-${accent}-400/50 ${styles.line}`}
-      />
+function ContactCard({ emailHref, githubHref, linkedinHref }) {
+  return (
+    <motion.aside
+      initial={{ opacity: 0, x: 16 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-[rgba(255,255,255,0.92)] p-9 shadow-[0_16px_50px_rgba(15,23,42,0.06)] sm:p-10"
+    >
+      <h3 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#0F172A]">
+        CONTACT
+      </h3>
 
-      {/* Esquina recortada */}
-      <div className="pointer-events-none absolute right-0 top-0 h-5 w-5 bg-gradient-to-bl from-[#020609] to-transparent [clip-path:polygon(100%_0,100%_100%,0_0)]" />
+      {/* Detalles de contacto */}
+      <div className="mt-8 space-y-6">
+        <ContactRow icon={<Mail />} label="Email" value="Enviar correo" href={emailHref} />
+        <ContactRow icon={<LinkedinIcon />} label="LinkedIn" value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
+        <ContactRow icon={<GithubIcon />} label="GitHub" value="github.com/VILLARIS" href={githubHref} accent="github" />
+      </div>
 
-      {/* Efecto de borde en hover */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `conic-gradient(from 0deg, transparent, ${accent === "cyan" ? "rgba(34,211,238,0.1)" :
-            accent === "purple" ? "rgba(168,85,247,0.1)" :
-              accent === "emerald" ? "rgba(52,211,153,0.1)" :
-                "rgba(226,232,240,0.05)"}, transparent)`,
-        }}
-      />
-    </motion.a>
+      {/* Divider */}
+      <div className="mt-8 border-t border-[#E2E8F0]" />
+
+      {/* Disponibilidad */}
+      <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+            Status
+          </p>
+          <p className="mt-1.5 flex items-center gap-2 text-[13px] font-semibold text-[#059669]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
+            Available for work
+          </p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+            Location
+          </p>
+          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A]">Perú</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+            Response
+          </p>
+          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A]">
+            Open to conversations
+          </p>
+        </div>
+      </div>
+
+      {/* Send email */}
+      <a
+        href={emailHref}
+        target="_blank"
+        rel="noreferrer"
+        className="group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md"
+      >
+        SEND ME AN EMAIL
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
+      </a>
+    </motion.aside>
   );
 }
 

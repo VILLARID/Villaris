@@ -43,14 +43,3 @@ a {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(34, 211, 238, 0.6);
 }
-
-.contact-card {
-    clip-path: polygon(
-        0 0,
-        calc(100% - 12px) 0,
-        100% 12px,
-        100% 100%,
-        10px 100%,
-        0 calc(100% - 10px)
-    );
-}

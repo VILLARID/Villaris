@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import CoreSystem from './pages/CoreSystem';
@@ -33,11 +33,12 @@ function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 z-50 rounded-full bg-cyan-400 p-3 text-[#020609] shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300 hover:bg-cyan-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] ${
+      aria-label="Volver arriba"
+      className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#0F172A] text-white shadow-[0_8px_30px_rgba(15,23,42,0.2)] transition-all duration-300 hover:bg-[#1E293B] hover:scale-105 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
       }`}
     >
-      <ChevronUp className="h-6 w-6" />
+      <ArrowUp className="h-5 w-5" />
     </button>
   );
 }
