@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   BookOpen,
   BriefcaseBusiness,
@@ -9,24 +8,9 @@ import {
   Quote,
   Target,
 } from "lucide-react";
+import SectionLabel from "../ui/SectionLabel";
 import PrincipleCard from "./PrincipleCard";
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 22 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+import Reveal from "../ui/Reveal";
 
 const metadata = [
   { label: "LOCATION", value: "Perú", icon: MapPin },
@@ -70,44 +54,38 @@ const stats = [
 
 function About() {
   return (
-    <section id="about" className="relative overflow-hidden bg-white py-24 sm:py-32">
+    <section id="about" className="relative overflow-hidden bg-white pt-6 pb-20 sm:pt-8 sm:pb-24">
       {/* Fondo con grid y radial */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px]" />
       <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.05),transparent_70%)]" />
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={container}
-        className="relative z-10 mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-14 px-[clamp(28px,5vw,72px)] lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-16 xl:gap-20"
-      >
+      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-14 px-[clamp(28px,5vw,72px)] lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-16 xl:gap-20">
         {/* COLUMNA IZQUIERDA */}
         <div className="flex min-w-0 flex-col">
-          <motion.div variants={item} className="flex items-center gap-3">
-            <span className="text-[11px] font-bold tracking-[0.14em] text-[#2563EB]">
-              03 /
-            </span>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-              About
-            </span>
-          </motion.div>
+          <SectionLabel number="01" label="ABOUT" />
 
-          <motion.h2
-            variants={item}
-            className="mt-6 text-[clamp(3.2rem,5vw,5.8rem)] font-bold leading-[0.94] tracking-[-0.045em] text-[#0F172A]"
+          <Reveal
+            as="h2"
+            y={32}
+            duration={0.8}
+            className="mt-7 text-[clamp(2.8rem,4.2vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#0F172A]"
           >
             SOBRE MÍ
-          </motion.h2>
+          </Reveal>
 
-          <motion.p
-            variants={item}
+          <Reveal
+            y={18}
+            delay={0.08}
             className="mt-5 text-[13px] font-semibold uppercase tracking-[0.12em] text-slate-500"
           >
             Software Engineer / <span className="text-[#2563EB]">VILLARIS</span>
-          </motion.p>
+          </Reveal>
 
-          <motion.div variants={item} className="mt-8 max-w-[620px] space-y-5 text-[15px] leading-[1.75] text-slate-500 sm:text-[16px]">
+          <Reveal
+            y={18}
+            delay={0.16}
+            className="mt-8 max-w-[620px] space-y-5 text-[15px] leading-[1.75] text-slate-500 sm:text-[16px]"
+          >
             <p>
               Desarrollador Full Stack enfocado en construir aplicaciones
               escalables, sistemas eficientes y soluciones digitales utilizando
@@ -118,10 +96,14 @@ function About() {
               creando productos que no solo funcionan, sino que se sienten
               precisos y bien construidos.
             </p>
-          </motion.div>
+          </Reveal>
 
           {/* Metadata 2x2 */}
-          <motion.div variants={item} className="mt-10 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
+          <Reveal
+            y={18}
+            delay={0.24}
+            className="mt-10 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2"
+          >
             {metadata.map((meta) => (
               <div key={meta.label} className="flex items-center gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EFF6FF]">
@@ -137,11 +119,13 @@ function About() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </Reveal>
 
           {/* Quote */}
-          <motion.blockquote
-            variants={item}
+          <Reveal
+            as="blockquote"
+            y={18}
+            delay={0.32}
             className="mt-10 rounded-2xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.65)] p-6 sm:p-7"
           >
             <Quote className="h-6 w-6 text-[#2563EB]/80" strokeWidth={1.6} />
@@ -150,18 +134,20 @@ function About() {
               sistema que construyo busca resolver un problema real y dejar una
               base sólida para lo que venga después."
             </p>
-          </motion.blockquote>
+          </Reveal>
         </div>
 
         {/* COLUMNA DERECHA */}
         <div className="flex min-w-0 flex-col">
-          <motion.h3
-            variants={item}
+          <Reveal
+            as="h3"
+            y={18}
+            delay={0.1}
             className="flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.12em] text-[#0F172A]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />
             Mis Principios
-          </motion.h3>
+          </Reveal>
 
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {principles.map((principle, index) => (
@@ -171,8 +157,9 @@ function About() {
         </div>
 
         {/* Stats strip */}
-        <motion.div
-          variants={item}
+        <Reveal
+          y={18}
+          delay={0.2}
           className="lg:col-span-2 mt-4 grid grid-cols-1 gap-y-10 rounded-2xl border border-[#E2E8F0] bg-white/80 px-8 py-10 sm:grid-cols-3 sm:gap-y-0 sm:divide-x sm:divide-[#E2E8F0] lg:mt-8"
         >
           {stats.map((stat) => (
@@ -185,8 +172,8 @@ function About() {
               </span>
             </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </Reveal>
+      </div>
     </section>
   );
 }

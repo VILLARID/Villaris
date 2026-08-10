@@ -1,7 +1,23 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 html {
     background: #020609;
+    scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 body {
@@ -15,7 +31,7 @@ body {
 }
 
 section[id] {
-    scroll-margin-top: 96px;
+    scroll-margin-top: 0;
 }
 
 button,

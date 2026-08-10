@@ -39,7 +39,7 @@ function ModuleCard({
     <motion.article
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -3 }}
       className="group relative flex min-h-[360px] flex-col rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-white p-7 shadow-[0_10px_35px_rgba(15,23,42,0.04)] transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:border-blue-200/70 hover:shadow-[0_16px_40px_rgba(15,23,42,0.07)] sm:p-8"

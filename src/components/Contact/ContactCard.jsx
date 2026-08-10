@@ -49,10 +49,10 @@ function ContactRow({ icon, label, value, href, accent = "blue" }) {
 function ContactCard({ emailHref, githubHref, linkedinHref }) {
   return (
     <motion.aside
-      initial={{ opacity: 0, x: 16 }}
+      initial={{ opacity: 0, x: 24 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: false, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-[rgba(255,255,255,0.92)] p-9 shadow-[0_16px_50px_rgba(15,23,42,0.06)] sm:p-10"
     >
       <h3 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#0F172A]">

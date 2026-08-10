@@ -5,7 +5,7 @@ function PrincipleCard({ icon: Icon, title, description, index = 0 }) {
     <motion.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -2 }}
       className="group flex min-h-full flex-col rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white p-7 shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-colors duration-300 hover:border-blue-200/70"

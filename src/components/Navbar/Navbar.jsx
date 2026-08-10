@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { ArrowRight, Menu, X } from "lucide-react";
+import { EASE_OUT_EXPO, getScrollDuration } from "../../utils/scrollUtils";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -10,7 +12,19 @@ const NAV_ITEMS = [
   { id: "system-ready", label: "Contact" },
 ];
 
+const LABEL_GAP = 24;
+
+function getNavbarBottom() {
+  const bar = document.querySelector("header")?.firstElementChild;
+  if (bar) {
+    const rect = bar.getBoundingClientRect();
+    return rect.top + rect.height;
+  }
+  return 84;
+}
+
 function Navbar() {
+  const lenis = useLenis();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +49,36 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavigate = () => setIsMenuOpen(false);
+  const handleNavigate = (event, sectionId) => {
+    event.preventDefault();
+    setIsMenuOpen(false);
+
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    if (!lenis) {
+      target.scrollIntoView({ behavior: "auto", block: "start" });
+      return;
+    }
+
+    if (sectionId === "home") {
+      lenis.scrollTo(0, {
+        duration: getScrollDuration(0),
+        easing: EASE_OUT_EXPO,
+      });
+      return;
+    }
+
+    const paddingTop = parseFloat(getComputedStyle(target).paddingTop) || 0;
+    const offset = -(getNavbarBottom() + LABEL_GAP - paddingTop);
+    const landingY = target.getBoundingClientRect().top + window.scrollY + offset;
+
+    lenis.scrollTo(target, {
+      offset,
+      duration: getScrollDuration(landingY),
+      easing: EASE_OUT_EXPO,
+    });
+  };
 
   return (
     <header className="fixed inset-x-0 top-4 z-50">
@@ -49,7 +92,7 @@ function Navbar() {
         {/* Logo */}
         <a
           href="#home"
-          onClick={handleNavigate}
+          onClick={(event) => handleNavigate(event, "home")}
           aria-label="VILLARIS — Inicio"
           className="group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md"
         >
@@ -70,7 +113,7 @@ function Navbar() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                onClick={handleNavigate}
+                onClick={(event) => handleNavigate(event, item.id)}
                 aria-current={isActive ? "true" : undefined}
                 className={`relative flex h-10 items-center rounded-md text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
                   isActive
@@ -82,7 +125,7 @@ function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="nav-active-indicator"
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-5 rounded-full bg-[#2563EB]"
                   />
                 )}
@@ -94,7 +137,7 @@ function Navbar() {
         {/* CTA desktop */}
         <a
           href="#system-ready"
-          onClick={handleNavigate}
+          onClick={(event) => handleNavigate(event, "system-ready")}
           className="group hidden h-10 items-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:inline-flex"
         >
           Get in touch
@@ -133,7 +176,7 @@ function Navbar() {
                   <li key={item.id}>
                     <a
                       href={`#${item.id}`}
-                      onClick={handleNavigate}
+                      onClick={(event) => handleNavigate(event, item.id)}
                       aria-current={isActive ? "true" : undefined}
                       className={`flex items-center justify-between rounded-xl px-4 py-3 text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
                         isActive
@@ -153,7 +196,7 @@ function Navbar() {
             <div className="p-2 pt-1">
               <a
                 href="#system-ready"
-                onClick={handleNavigate}
+                onClick={(event) => handleNavigate(event, "system-ready")}
                 className="group flex h-11 items-center justify-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
               >
                 Get in touch

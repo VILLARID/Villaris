@@ -1,15 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpDown, Search } from "lucide-react";
 
-const fadeUp = (y = 10, delay = 0, reduce = false) => ({
-  hidden: { opacity: 0, y: reduce ? 0 : y },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay },
-  },
-});
-
 function ProjectFilters({
   categories,
   activeCategory,
@@ -23,7 +14,10 @@ function ProjectFilters({
 
   return (
     <motion.div
-      variants={fadeUp(10, 0.34, shouldReduceMotion)}
+      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-[96px] z-20 rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white/95 p-3 shadow-[0_2px_12px_rgba(15,23,42,0.04)] backdrop-blur-md sm:p-3.5"
     >
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">

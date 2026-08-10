@@ -1,29 +1,10 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, ArrowDown } from "lucide-react";
 import ContactCard from "../components/Contact/ContactCard";
+import SectionLabel from "../components/ui/SectionLabel";
+import Reveal from "../components/ui/Reveal";
 import cv from "../assets/cv_farid_fullstack_developer_2026.pdf";
 
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
-};
-
-function fadeUp(y = 12, delay = 0, reduce = false) {
-  return {
-    hidden: { opacity: 0, y: reduce ? 0 : y },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
-    },
-  };
-}
-
 function SystemReady() {
-  const shouldReduceMotion = useReducedMotion();
   const currentYear = new Date().getFullYear();
 
   const emailHref = "https://mail.google.com/mail/u/1/#inbox";
@@ -40,7 +21,7 @@ function SystemReady() {
   return (
     <section
       id="system-ready"
-      className="relative overflow-x-clip bg-white pb-16 pt-[120px]"
+      className="relative overflow-x-clip bg-white pt-6 pb-20 sm:pt-8 sm:pb-24"
     >
       {/* Fondo: grid fino + radial azul + detalles tenues */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px]" />
@@ -49,54 +30,34 @@ function SystemReady() {
       <span aria-hidden="true" className="pointer-events-none absolute left-[46%] top-[78%] h-1 w-1 rounded-full bg-[#2563EB]/30" />
       <span aria-hidden="true" className="pointer-events-none absolute bottom-[18%] right-[4%] text-[10px] text-[#CBD5E1]">+</span>
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={container}
-        className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]"
-      >
+      <div className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]">
         {/* Composición 2 columnas */}
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
           {/* LEFT */}
           <div className="flex min-w-0 flex-col">
-            <motion.div
-              variants={fadeUp(8, 0.05, shouldReduceMotion)}
-              className="flex items-center gap-4"
-            >
-              <span className="text-[11px] font-bold tracking-[0.14em] text-[#2563EB]">
-                05 /
-              </span>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#64748B]">
-                CONTACT
-              </span>
-              <span
-                aria-hidden="true"
-                className="h-px w-[42px] bg-[#2563EB] opacity-50"
-              />
-            </motion.div>
+            <SectionLabel number="04" label="CONTACT" />
 
-            <motion.h2
-              variants={fadeUp(16, 0.12, shouldReduceMotion)}
-              className="mt-7 text-[clamp(3rem,14vw,4.8rem)] font-bold leading-[0.96] tracking-[-0.045em] lg:text-[clamp(4rem,5.5vw,6.8rem)]"
+            <Reveal
+              as="h2"
+              y={32}
+              duration={0.8}
+              className="mt-7 text-[clamp(3rem,5vw,5.8rem)] font-bold leading-[0.96] tracking-[-0.04em]"
             >
               <span className="block text-[#0F172A]">LET'S BUILD</span>
               <span className="block text-[#2563EB]">SOMETHING GREAT.</span>
-            </motion.h2>
+            </Reveal>
 
-            <motion.p
-              variants={fadeUp(10, 0.22, shouldReduceMotion)}
+            <Reveal
+              y={18}
+              delay={0.08}
               className="mt-8 max-w-[600px] text-[16px] leading-[1.7] text-[#64748B] sm:text-[17px]"
             >
               ¿Tienes una idea, un proyecto o simplemente quieres conversar sobre
               tecnología? Escríbeme y veamos qué podemos construir.
-            </motion.p>
+            </Reveal>
 
             {/* CTA */}
-            <motion.div
-              variants={fadeUp(10, 0.3, shouldReduceMotion)}
-              className="mt-10"
-            >
+            <Reveal y={18} delay={0.16} className="mt-10">
               <a
                 href={emailHref}
                 target="_blank"
@@ -106,11 +67,12 @@ function SystemReady() {
                 GET IN TOUCH
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
               </a>
-            </motion.div>
+            </Reveal>
 
             {/* Social links */}
-            <motion.div
-              variants={fadeUp(10, 0.38, shouldReduceMotion)}
+            <Reveal
+              y={18}
+              delay={0.24}
               className="mt-10 flex flex-wrap items-center gap-x-9 gap-y-4"
             >
               {socialLinks.map((link, index) => (
@@ -132,7 +94,7 @@ function SystemReady() {
                   </a>
                 </span>
               ))}
-            </motion.div>
+            </Reveal>
           </div>
 
           {/* RIGHT: contact card */}
@@ -146,8 +108,10 @@ function SystemReady() {
         </div>
 
         {/* Footer */}
-        <motion.footer
-          variants={fadeUp(10, 0.4, shouldReduceMotion)}
+        <Reveal
+          as="footer"
+          y={18}
+          delay={0.3}
           className="mt-20 flex flex-col gap-5 border-t border-[#E2E8F0] pb-2 pt-7 sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
@@ -166,8 +130,8 @@ function SystemReady() {
               Perú / {currentYear}
             </p>
           </div>
-        </motion.footer>
-      </motion.div>
+        </Reveal>
+      </div>
     </section>
   );
 }
