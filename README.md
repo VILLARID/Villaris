@@ -1,84 +1,92 @@
 # Villaris — Digital Identity
 
-Portfolio personal de **Farid Tabare Matos Villarroel**, Software Engineer y Full Stack Developer.
+Personal portfolio of **Farid Tabare Matos Villarroel**, Software Engineer and Full Stack Developer.
 
-**Villaris** es mi identidad digital y el espacio donde presento mi perfil profesional, forma de trabajo, stack tecnológico, proyectos y medios de contacto.
+**Villaris** is my digital identity — a space where I present my work, technical approach, projects, and professional profile.
 
 ---
 
-## Overview
+## ✦ Overview
 
-Este proyecto es una single-page portfolio construida con React y Vite.
+This project is a single-page portfolio built with React and Vite.
 
-El objetivo principal es presentar una experiencia visual limpia, moderna y tecnológica, manteniendo una navegación fluida y una estructura clara entre las diferentes secciones del sitio.
+The goal is to create a clean, modern, and technology-focused experience with strong typography, subtle technical details, smooth navigation, and a consistent visual system across every section.
 
-La interfaz utiliza una estética minimalista basada en fondos claros, tipografía fuerte, detalles técnicos sutiles y animaciones controladas.
+The interface follows a minimalist direction with:
+
+- light backgrounds
+- dark typography
+- controlled blue accents
+- subtle grid patterns
+- soft borders and shadows
+- smooth motion and transitions
 
 ---
 
 ## Sections
 
-El portfolio está dividido en las siguientes secciones:
-
 ### Home
 
-Presentación principal con:
+The main introduction of the portfolio.
 
-- nombre completo
-- rol profesional
-- identidad digital `VILLARIS`
-- breve descripción
-- principales áreas técnicas
-- accesos directos a proyectos y contacto
+It includes:
+
+- full name
+- professional role
+- `VILLARIS` digital identity
+- short introduction
+- main technical areas
+- direct access to projects and contact
 
 ### About
 
-Información sobre mi perfil como desarrollador y los principios que aplico al construir software.
+A closer look at how I approach software development.
 
-Incluye conceptos como:
+Main principles:
 
-- arquitectura primero
-- código limpio
-- soluciones reales
-- aprendizaje continuo
+- Architecture First
+- Clean Code
+- Real Solutions
+- Continuous Learning
 
 ### Core System
 
-Representación de mi ecosistema tecnológico.
+A visual representation of my technology ecosystem and the tools I use to build software.
 
-Actualmente organizado en:
+Main areas:
 
 - Frontend
 - Backend
 - Databases
 
-Además de principios relacionados con:
+It also highlights engineering principles such as:
 
-- arquitectura modular
-- seguridad
-- rendimiento
-- despliegue
+- modular architecture
+- security
+- performance
+- continuous deployment
 
 ### Project Archive
 
-Colección de proyectos organizados por categorías.
+A collection of selected projects presented through visual cards.
 
-Incluye:
+Each project can include:
 
-- previews visuales
-- título
-- descripción
-- tecnologías
-- estado
-- filtros
-- búsqueda
-- acceso a cada proyecto
+- preview image
+- title
+- short description
+- technologies
+- status
+- category
+- project link
+
+The section also includes filtering, search, and sorting.
 
 ### Contact
 
-Sección final para contacto, oportunidades y colaboraciones.
+The final section of the portfolio, focused on communication and opportunities.
 
-Incluye enlaces a:
+It includes access to:
 
 - Email
 - GitHub
@@ -87,7 +95,7 @@ Incluye enlaces a:
 
 ---
 
-## Tech Stack
+## ⚙️ Tech Stack
 
 ### Frontend
 
@@ -101,9 +109,7 @@ Incluye enlaces a:
 
 - Lenis
 
-### Additional Technologies
-
-El portfolio también representa tecnologías con las que trabajo, entre ellas:
+### Technologies Represented in the Portfolio
 
 - Node.js
 - Python
@@ -116,17 +122,17 @@ El portfolio también representa tecnologías con las que trabajo, entre ellas:
 
 ---
 
-## Features
+## ✨ Features
 
 - Responsive design
-- Single Page Application
+- Single-page architecture
 - Smooth scrolling with Lenis
 - Scroll-spy navigation
 - Animated active navbar indicator
-- Section reveal animations with Framer Motion
-- Sticky project filters
-- Project category filtering
+- Section reveal animations
+- Project filtering
 - Project search and sorting
+- Sticky project toolbar
 - Responsive mobile navigation
 - Reduced motion support
 - Accessible navigation
@@ -136,20 +142,20 @@ El portfolio también representa tecnologías con las que trabajo, entre ellas:
 
 ---
 
-## Design
+## Design System
 
-El sistema visual utiliza principalmente:
+The visual system is based on a restrained palette and clean interface language.
 
-- White backgrounds
-- Slate / black typography
-- Blue accents
-- Subtle grids
-- Soft borders
-- Minimal shadows
-- Large editorial typography
-- Lightweight technical details
+### Main Colors
 
-El objetivo es mantener una estética tecnológica sin recurrir a estilos cyberpunk, gamer o excesivamente futuristas.
+- Background: `#FFFFFF`
+- Primary text: `#0F172A`
+- Secondary text: `#64748B`
+- Muted text: `#94A3B8`
+- Borders: `#E2E8F0`
+- Accent blue: `#2563EB`
+
+The goal is to maintain a technological identity without relying on excessive futuristic, cyberpunk, or neon elements.
 
 ---
 
