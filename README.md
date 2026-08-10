@@ -6,7 +6,7 @@ Personal portfolio of **Farid Tabare Matos Villarroel**, Software Engineer and F
 
 ---
 
-## ✦ Overview
+## Overview
 
 This project is a single-page portfolio built with React and Vite.
 
@@ -95,7 +95,7 @@ It includes access to:
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -122,7 +122,7 @@ It includes access to:
 
 ---
 
-## ✨ Features
+## Features
 
 - Responsive design
 - Single-page architecture
