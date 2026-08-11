@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { EASE_OUT_EXPO, getScrollDuration } from "../../utils/scrollUtils";
-import useAppMotion from "../../hooks/useAppMotion";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -26,7 +25,6 @@ function getNavbarBottom() {
 
 function Navbar() {
   const lenis = useLenis();
-  const { shouldReduceMotion } = useAppMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -117,7 +115,7 @@ function Navbar() {
                 href={`#${item.id}`}
                 onClick={(event) => handleNavigate(event, item.id)}
                 aria-current={isActive ? "true" : undefined}
-                whileHover={{ y: shouldReduceMotion ? 0 : -1 }}
+                whileHover={{ y: -1 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 className={`group relative flex h-10 items-center rounded-md text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
                   isActive
@@ -150,7 +148,7 @@ function Navbar() {
         <motion.a
           href="#system-ready"
           onClick={(event) => handleNavigate(event, "system-ready")}
-          whileHover={{ y: shouldReduceMotion ? 0 : -1 }}
+          whileHover={{ y: -1 }}
           whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="group hidden h-10 items-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:inline-flex"
@@ -190,7 +188,7 @@ function Navbar() {
                 return (
                   <motion.li
                     key={item.id}
-                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
                       duration: 0.2,

@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
 
 function SectionLabel({ number, label }) {
-  const { shouldReduceMotion } = useAppMotion();
-
   return (
     <div className="flex items-center gap-2.5 sm:gap-3">
       <motion.span
-        initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -16 }}
+        initial={{ opacity: 0, x: -16 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -16,7 +13,7 @@ function SectionLabel({ number, label }) {
         {number} /
       </motion.span>
       <motion.span
-        initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -16 }}
+        initial={{ opacity: 0, x: -16 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}

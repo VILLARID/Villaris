@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
 
 const EASE = [0.21, 0.47, 0.32, 0.98];
 
@@ -26,12 +25,7 @@ function Reveal({
   once = false,
   className,
 }) {
-  const { shouldReduceMotion } = useAppMotion();
   const Tag = as;
-
-  if (shouldReduceMotion) {
-    return <Tag className={className}>{children}</Tag>;
-  }
 
   const initial = { opacity: 0 };
 

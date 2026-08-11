@@ -1,15 +1,10 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
-import { fadeIn, fadeUp, lineReveal } from "../../utils/motion";
+import { fadeUp, lineReveal } from "../../utils/motion";
 
 function HeroIntro() {
-  const { shouldReduceMotion } = useAppMotion();
+  const fade = (y, delay) => fadeUp(y, delay);
 
-  const fade = (y, delay) =>
-    shouldReduceMotion ? fadeIn(delay) : fadeUp(y, delay);
-
-  const maskLine = (delay) =>
-    shouldReduceMotion ? fadeIn(delay) : lineReveal(delay);
+  const maskLine = (delay) => lineReveal(delay);
 
   return (
     <div className="flex w-full min-w-0 flex-col">
@@ -32,7 +27,7 @@ function HeroIntro() {
       <motion.h1
         initial="hidden"
         animate="visible"
-        variants={shouldReduceMotion ? fadeIn(0.1) : { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6, delay: 0.1, ease: "easeOut" } } }}
+        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6, delay: 0.1, ease: "easeOut" } } }}
         className="text-[clamp(4rem,5.3vw,6.4rem)] font-bold leading-[0.94] tracking-[-0.045em] text-[#0F172A]"
       >
         <span className="block overflow-hidden">

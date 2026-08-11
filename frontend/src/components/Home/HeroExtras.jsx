@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
 import { ArrowRight, Code2, Layers3, Database } from "lucide-react";
-import { EASE, fadeIn, fadeUp, staggerContainer } from "../../utils/motion";
+import { EASE, fadeUp, staggerContainer } from "../../utils/motion";
 
 const SKILLS = [
   { icon: Code2, label: "FULL STACK" },
@@ -17,14 +16,9 @@ const everHover = {
 };
 
 function HeroExtras() {
-  const { shouldReduceMotion } = useAppMotion();
+  const fade = (y, delay) => fadeUp(y, delay);
 
-  const fade = (y, delay) =>
-    shouldReduceMotion ? fadeIn(delay) : fadeUp(y, delay);
-
-  const skillItem = shouldReduceMotion
-    ? fadeIn(0.34, 0.4)
-    : fadeUp(8, 0.34);
+  const skillItem = fadeUp(8, 0.34);
 
   return (
     <div className="flex w-full min-w-0 flex-col">
@@ -32,7 +26,7 @@ function HeroExtras() {
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={shouldReduceMotion ? undefined : staggerContainer(0.09, 0.34)}
+        variants={staggerContainer(0.09, 0.34)}
         className="flex flex-wrap items-center gap-x-7 gap-y-4"
       >
         {SKILLS.map((skill, index) => {

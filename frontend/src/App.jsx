@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { MotionConfig } from "framer-motion";
 import { ReactLenis, useLenis } from "lenis/react";
 import { ArrowUp } from "lucide-react";
 import { EASE_OUT_EXPO, getScrollDuration } from "./utils/scrollUtils";
-import { isFullMotion } from "./config/motion";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import CoreSystem from "./pages/CoreSystem";
@@ -59,8 +57,7 @@ function App() {
         easing: EASE_OUT_EXPO,
       }}
     >
-      <MotionConfig reducedMotion={isFullMotion ? "never" : "user"}>
-        <Navbar />
+      <Navbar />
 
         {/* Secciones */}
         <main>
@@ -73,7 +70,6 @@ function App() {
 
         {/* Botón volver arriba */}
         <ScrollToTop />
-      </MotionConfig>
     </ReactLenis>
   );
 }

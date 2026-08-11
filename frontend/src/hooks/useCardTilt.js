@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
-import useAppMotion from "./useAppMotion";
 
 const DEFAULT_CONFIG = {
   maxRotateX: 4,
@@ -23,7 +22,6 @@ export default function useCardTilt(config = {}) {
     minWidth,
   } = { ...DEFAULT_CONFIG, ...config };
 
-  const { shouldReduceMotion } = useAppMotion();
   const [enabled, setEnabled] = useState(false);
   const boundsRef = useRef(null);
   const enabledRef = useRef(false);
@@ -45,7 +43,7 @@ export default function useCardTilt(config = {}) {
     const width = window.matchMedia(`(min-width: ${minWidth}px)`);
 
     const sync = () => {
-      const active = hover.matches && width.matches && !shouldReduceMotion;
+      const active = hover.matches && width.matches;
       setEnabled(active);
       enabledRef.current = active;
       if (!active) {
@@ -62,7 +60,7 @@ export default function useCardTilt(config = {}) {
       hover.removeEventListener("change", sync);
       width.removeEventListener("change", sync);
     };
-  }, [shouldReduceMotion, minWidth, mouseX, mouseY]);
+  }, [minWidth, mouseX, mouseY]);
 
   const setFromPoint = (clientX, clientY) => {
     const bounds = boundsRef.current;

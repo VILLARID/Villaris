@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
 import { ArrowUpDown, Search } from "lucide-react";
 
 function ProjectFilters({
@@ -11,11 +10,9 @@ function ProjectFilters({
   sort,
   onSortChange,
 }) {
-  const { shouldReduceMotion } = useAppMotion();
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.3 }}
       transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}

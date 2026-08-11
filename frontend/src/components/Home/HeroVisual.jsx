@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import heroPhoto from "../../assets/Home/FaridHero.png";
 import { EASE } from "../../utils/motion";
-import useAppMotion from "../../hooks/useAppMotion";
 
 const PULSE_STATUS = {
   y: [0, -6, 0],
@@ -57,7 +56,6 @@ function usePointerFine() {
 }
 
 function HeroVisual() {
-  const { shouldReduceMotion } = useAppMotion();
   const isPointerFine = usePointerFine();
   const isCompact = useCompact();
 
@@ -70,7 +68,7 @@ function HeroVisual() {
   const photoX = useTransform(springX, [-1, 1], [6, -6]);
   const photoY = useTransform(springY, [-1, 1], [5, -5]);
 
-  const parallaxActive = isPointerFine && !shouldReduceMotion;
+  const parallaxActive = isPointerFine;
 
   const handlePointerMove = (event) => {
     if (!isPointerFine) return;
@@ -93,19 +91,15 @@ function HeroVisual() {
   const pulseScale = isCompact ? 1.005 : 1.012;
   const pulseY = isCompact ? -2 : -3;
 
-  const pulse = shouldReduceMotion
-    ? {}
-    : {
-        scale: [1, pulseScale, 1],
-        y: [0, pulseY, 0],
-      };
+  const pulse = {
+    scale: [1, pulseScale, 1],
+    y: [0, pulseY, 0],
+  };
 
-  const glow = shouldReduceMotion
-    ? {}
-    : {
-        opacity: [0.5, 0.8, 0.5],
-        scale: [0.98, 1.03, 0.98],
-      };
+  const glow = {
+    opacity: [0.5, 0.8, 0.5],
+    scale: [0.98, 1.03, 0.98],
+  };
 
   return (
     <div
@@ -180,7 +174,7 @@ function HeroVisual() {
         className="absolute left-0 top-[32%] z-20 hidden rounded-xl border border-[rgba(226,232,240,0.8)] bg-[rgba(255,255,255,0.82)] px-4 py-3 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-md sm:block"
       >
         <motion.div
-          animate={shouldReduceMotion ? {} : PULSE_STATUS}
+          animate={PULSE_STATUS}
           transition={{ ...pulseTransition, duration: 6 }}
         >
           <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8]">
@@ -203,7 +197,7 @@ function HeroVisual() {
         className="absolute right-0 top-[14%] z-20 flex h-12 w-12 items-center justify-center rounded-xl border border-[#E2E8F0] bg-white/90 shadow-sm"
       >
         <motion.div
-          animate={shouldReduceMotion ? {} : PULSE_EMBLEM}
+          animate={PULSE_EMBLEM}
           transition={{ ...pulseTransition, duration: 7, delay: 0.6 }}
           className="flex h-full w-full items-center justify-center"
         >

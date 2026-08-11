@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../hooks/useAppMotion";
 import HeroIntro from "../components/Home/HeroIntro";
 import HeroVisual from "../components/Home/HeroVisual";
 import HeroExtras from "../components/Home/HeroExtras";
 
 function Home() {
-  const { shouldReduceMotion } = useAppMotion();
-
   return (
     <section
       id="home"
@@ -17,14 +14,14 @@ function Home() {
         {/* Grid tenue con respiración ambiental */}
         <motion.div
           className="absolute inset-0 bg-[linear-gradient(to_right,rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]"
-          animate={shouldReduceMotion ? {} : { opacity: [1, 0.82, 1] }}
+          animate={{ opacity: [1, 0.82, 1] }}
           transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
         />
 
         {/* Radial suave detrás de la foto con deriva lenta */}
         <motion.div
           className="absolute right-[-10%] top-[5%] h-[720px] w-[720px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.04),transparent_70%)]"
-          animate={shouldReduceMotion ? {} : { x: [0, 16, 0], y: [0, -14, 0] }}
+          animate={{ x: [0, 16, 0], y: [0, -14, 0] }}
           transition={{ duration: 20, ease: "easeInOut", repeat: Infinity }}
         />
       </div>
@@ -60,7 +57,7 @@ function Home() {
         <motion.span
           aria-hidden="true"
           className="block h-10 w-px origin-top bg-gradient-to-b from-[#94A3B8] to-transparent"
-          animate={shouldReduceMotion ? {} : { y: [0, 5, 0], opacity: [0.7, 1, 0.7] }}
+          animate={{ y: [0, 5, 0], opacity: [0.7, 1, 0.7] }}
           transition={{ duration: 2.1, ease: "easeInOut", repeat: Infinity }}
         />
       </motion.div>

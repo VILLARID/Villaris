@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import useAppMotion from "../../hooks/useAppMotion";
 import { ArrowRight, Mail } from "lucide-react";
 import { fadeSlide, staggerContainer } from "../../utils/motion";
 
@@ -49,8 +48,6 @@ function ContactRow({ icon, label, value, href, accent = "blue" }) {
 }
 
 function ContactCard({ emailHref, githubHref, linkedinHref }) {
-  const { shouldReduceMotion } = useAppMotion();
-
   return (
     <motion.aside
       initial={{ opacity: 0, x: 24 }}
@@ -68,16 +65,16 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, margin: "-40px" }}
-        variants={shouldReduceMotion ? undefined : staggerContainer(0.08, 0.1)}
+        variants={staggerContainer(0.08, 0.1)}
         className="mt-8 space-y-6"
       >
-        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+        <motion.div variants={fadeSlide(10)}>
           <ContactRow icon={<Mail />} label="Email" value="Enviar correo" href={emailHref} />
         </motion.div>
-        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+        <motion.div variants={fadeSlide(10)}>
           <ContactRow icon={<LinkedinIcon />} label="LinkedIn" value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
         </motion.div>
-        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+        <motion.div variants={fadeSlide(10)}>
           <ContactRow icon={<GithubIcon />} label="GitHub" value="github.com/VILLARIS" href={githubHref} accent="github" />
         </motion.div>
       </motion.div>
