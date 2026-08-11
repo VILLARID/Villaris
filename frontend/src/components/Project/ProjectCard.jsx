@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Code2, ExternalLink } from "lucide-react";
 import ProjectPreview from "./ProjectPreview";
+import useCardTilt from "../../hooks/useCardTilt";
 
 const statusStyles = {
   completed: {
@@ -48,6 +49,8 @@ function ProjectCard({ project, index = 0 }) {
   const primaryHref = project.project_url || project.github_url;
   const githubHref = project.github_url;
 
+  const { tilt, handlers } = useCardTilt();
+
   return (
     <motion.article
       layout
@@ -57,16 +60,21 @@ function ProjectCard({ project, index = 0 }) {
       viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -3 }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-[box-shadow,border-color] duration-[250ms] ease-out hover:border-blue-200/70 hover:shadow-[0_16px_40px_rgba(15,23,42,0.07)]"
+      {...handlers}
+      style={tilt}
+      className="group relative flex flex-col rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-[box-shadow,border-color] duration-[250ms] ease-out hover:border-blue-200/70 hover:shadow-[0_16px_40px_rgba(15,23,42,0.07)]"
     >
       {/* Preview */}
-      <div className="aspect-[16/10] w-full overflow-hidden bg-[#F8FAFC]">
+      <div
+        className="aspect-[16/10] w-full overflow-hidden rounded-t-2xl bg-[#F8FAFC]"
+        style={{ transform: "translateZ(16px)" }}
+      >
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={project.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
           />
         ) : (
           <ProjectPreview category={project.category} />
@@ -74,7 +82,10 @@ function ProjectCard({ project, index = 0 }) {
       </div>
 
       {/* Contenido */}
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
+      <div
+        className="flex flex-1 flex-col p-6 sm:p-7"
+        style={{ transformStyle: "preserve-3d" }}
+      >
         <div className="flex items-center gap-3">
           <span
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] ${style.bg} ${style.text}`}
@@ -87,20 +98,29 @@ function ProjectCard({ project, index = 0 }) {
           </span>
         </div>
 
-        <h3 className="mt-4 text-[20px] font-bold leading-snug tracking-[-0.01em] text-[#0F172A]">
+        <h3
+          className="mt-4 text-[20px] font-bold leading-snug tracking-[-0.01em] text-[#0F172A]"
+          style={{ transform: "translateZ(8px)" }}
+        >
           {project.title}
         </h3>
 
-        <p className="mt-2.5 text-[14px] leading-relaxed text-[#64748B]">
+        <p
+          className="mt-2.5 text-[14px] leading-relaxed text-[#64748B]"
+          style={{ transform: "translateZ(4px)" }}
+        >
           {project.description || project.short_description}
         </p>
 
         {/* Tags */}
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div
+          className="mt-5 flex flex-wrap gap-2"
+          style={{ transform: "translateZ(6px)" }}
+        >
           {technologies.map((tech) => (
             <span
               key={tech.id ?? tech.name}
-              className="rounded-md border border-[#E2E8F0] bg-[#F8FAFC] px-2.5 py-1 text-[10px] font-medium text-[#475569]"
+              className="rounded-md border border-[#E2E8F0] bg-[#F8FAFC] px-2.5 py-1 text-[10px] font-medium text-[#475569] transition-colors duration-200 group-hover:border-[#CBD5E1]"
             >
               {tech.name}
             </span>
@@ -108,7 +128,10 @@ function ProjectCard({ project, index = 0 }) {
         </div>
 
         {/* CTA */}
-        <div className="mt-auto flex items-center justify-between gap-3 pt-7">
+        <div
+          className="mt-auto flex items-center justify-between gap-3 pt-7"
+          style={{ transform: "translateZ(12px)" }}
+        >
           {primaryHref ? (
             <a
               href={primaryHref}

@@ -141,7 +141,7 @@ function About() {
         <div className="flex min-w-0 flex-col">
           <Reveal
             as="h3"
-            y={18}
+            direction="left"
             delay={0.1}
             className="flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.12em] text-[#0F172A]"
           >
@@ -158,7 +158,7 @@ function About() {
 
         {/* Stats strip */}
         <Reveal
-          y={18}
+          direction="none"
           delay={0.2}
           className="lg:col-span-2 mt-4 grid grid-cols-1 gap-y-10 rounded-2xl border border-[#E2E8F0] bg-white/80 px-8 py-10 sm:grid-cols-3 sm:gap-y-0 sm:divide-x sm:divide-[#E2E8F0] lg:mt-8"
         >

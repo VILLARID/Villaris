@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, ArrowDown } from "lucide-react";
 import ContactCard from "../components/Contact/ContactCard";
 import SectionLabel from "../components/ui/SectionLabel";
@@ -58,15 +59,18 @@ function SystemReady() {
 
             {/* CTA */}
             <Reveal y={18} delay={0.16} className="mt-10">
-              <a
+              <motion.a
                 href={emailHref}
                 target="_blank"
                 rel="noreferrer"
+                whileHover={{ y: -1, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="group inline-flex h-[54px] items-center gap-2.5 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 GET IN TOUCH
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
-              </a>
+              </motion.a>
             </Reveal>
 
             {/* Social links */}

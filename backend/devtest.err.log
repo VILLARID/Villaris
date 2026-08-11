@@ -9,3 +9,4 @@ Error: Not allowed by CORS
     at processParams (C:\Users\F4r1d\Documents\Villaris\backend\node_modules\router\index.js:582:12)
     at next (C:\Users\F4r1d\Documents\Villaris\backend\node_modules\router\index.js:291:5)
     at router.handle (C:\Users\F4r1d\Documents\Villaris\backend\node_modules\router\index.js:186:3)
+^C

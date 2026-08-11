@@ -1,7 +1,8 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import useAppMotion from "../../hooks/useAppMotion";
 
 function SectionLabel({ number, label }) {
-  const shouldReduceMotion = useReducedMotion();
+  const { shouldReduceMotion } = useAppMotion();
 
   return (
     <div className="flex items-center gap-2.5 sm:gap-3">

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import useCardTilt from "../../hooks/useCardTilt";
 
 const accentConfigs = {
   blue: {
@@ -34,6 +35,7 @@ function ModuleCard({
   index = 0,
 }) {
   const styles = accentConfigs[accent] || accentConfigs.blue;
+  const { tilt, handlers } = useCardTilt();
 
   return (
     <motion.article
@@ -42,10 +44,15 @@ function ModuleCard({
       viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -3 }}
+      {...handlers}
+      style={tilt}
       className="group relative flex min-h-[360px] flex-col rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-white p-7 shadow-[0_10px_35px_rgba(15,23,42,0.04)] transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:border-blue-200/70 hover:shadow-[0_16px_40px_rgba(15,23,42,0.07)] sm:p-8"
     >
       {/* Header: módulo + ACTIVE pill */}
-      <div className="flex items-center justify-between gap-3">
+      <div
+        className="flex items-center justify-between gap-3"
+        style={{ transform: "translateZ(6px)" }}
+      >
         <span
           className="text-[10px] font-bold tracking-[0.12em]"
           style={{ color: styles.id }}
@@ -59,14 +66,17 @@ function ModuleCard({
       </div>
 
       {/* Identidad del módulo */}
-      <div className="mt-7">
+      <div style={{ transformStyle: "preserve-3d" }}>
         <div
-          className="flex h-14 w-14 items-center justify-center rounded-[14px]"
-          style={{ background: styles.iconBg }}
+          className="flex h-14 w-14 items-center justify-center rounded-[14px] transition-transform duration-300 ease-out group-hover:scale-105"
+          style={{ background: styles.iconBg, transform: "translateZ(16px)" }}
         >
           <Icon className="h-6 w-6" strokeWidth={1.7} style={{ color: styles.iconColor }} />
         </div>
-        <h3 className="mt-6 text-[17px] font-bold tracking-[0.01em] text-[#0F172A]">
+        <h3
+          className="mt-6 text-[17px] font-bold tracking-[0.01em] text-[#0F172A]"
+          style={{ transform: "translateZ(8px)" }}
+        >
           {title}
         </h3>
         <p className="mt-2 text-[14px] leading-relaxed text-[#64748B]">
@@ -75,11 +85,11 @@ function ModuleCard({
       </div>
 
       {/* Tech list */}
-      <ul className="mt-7">
+      <ul className="mt-7" style={{ transform: "translateZ(4px)" }}>
         {technologies.map((tech, idx) => (
           <li
             key={tech}
-            className={`flex h-[44px] items-center gap-3 ${
+            className={`flex h-[44px] items-center gap-3 transition-colors duration-200 hover:bg-[#F8FAFC] ${
               idx < technologies.length - 1 ? "border-b border-[#F1F5F9]" : ""
             }`}
           >
@@ -94,7 +104,7 @@ function ModuleCard({
       </ul>
 
       {/* Accent inferior */}
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-8" style={{ transform: "translateZ(10px)" }}>
         <span
           className="block h-[2px] w-[80px] rounded-full"
           style={{ background: styles.line }}

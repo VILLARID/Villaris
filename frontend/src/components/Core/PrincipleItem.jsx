@@ -1,7 +1,7 @@
 function PrincipleItem({ icon: Icon, title, description }) {
   return (
-    <div className="flex items-start gap-4">
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EFF6FF]">
+    <div className="group flex items-start gap-4">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EFF6FF] transition-transform duration-300 ease-out group-hover:scale-105">
         <Icon aria-hidden="true" className="h-5 w-5 text-[#2563EB]" strokeWidth={1.8} />
       </span>
       <div className="min-w-0">

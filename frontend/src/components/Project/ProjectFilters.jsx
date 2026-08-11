@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import useAppMotion from "../../hooks/useAppMotion";
 import { ArrowUpDown, Search } from "lucide-react";
 
 function ProjectFilters({
@@ -10,7 +11,7 @@ function ProjectFilters({
   sort,
   onSortChange,
 }) {
-  const shouldReduceMotion = useReducedMotion();
+  const { shouldReduceMotion } = useAppMotion();
 
   return (
     <motion.div

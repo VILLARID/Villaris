@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { EASE_OUT_EXPO, getScrollDuration } from "../../utils/scrollUtils";
+import useAppMotion from "../../hooks/useAppMotion";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -25,6 +26,7 @@ function getNavbarBottom() {
 
 function Navbar() {
   const lenis = useLenis();
+  const { shouldReduceMotion } = useAppMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -110,12 +112,14 @@ function Navbar() {
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
-              <a
+              <motion.a
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(event) => handleNavigate(event, item.id)}
                 aria-current={isActive ? "true" : undefined}
-                className={`relative flex h-10 items-center rounded-md text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
+                whileHover={{ y: shouldReduceMotion ? 0 : -1 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className={`group relative flex h-10 items-center rounded-md text-[13px] font-medium tracking-[0.05em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
                   isActive
                     ? "font-semibold text-[#0F172A]"
                     : "text-[#64748B] hover:text-[#0F172A]"
@@ -125,24 +129,35 @@ function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="nav-active-indicator"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-5 rounded-full bg-[#2563EB]"
                   />
                 )}
-              </a>
+                {!isActive && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-5 rounded-full bg-[#2563EB]/40 opacity-0 transition-opacity duration-300 group-hover:opacity-70"
+                  />
+                )}
+              </motion.a>
             );
           })}
         </nav>
 
         {/* CTA desktop */}
-        <a
+        <motion.a
           href="#system-ready"
           onClick={(event) => handleNavigate(event, "system-ready")}
+          whileHover={{ y: shouldReduceMotion ? 0 : -1 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className="group hidden h-10 items-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:inline-flex"
         >
           Get in touch
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
-        </a>
+        </motion.a>
 
         {/* Botón hamburguesa */}
         <button
@@ -170,10 +185,19 @@ function Navbar() {
             className="mx-6 mt-2 overflow-hidden rounded-[16px] border border-slate-900/10 bg-white p-2 shadow-[0_8px_30px_rgba(15,23,42,0.06)] md:hidden"
           >
             <ul className="flex flex-col">
-              {NAV_ITEMS.map((item) => {
+              {NAV_ITEMS.map((item, index) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <li key={item.id}>
+                  <motion.li
+                    key={item.id}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.2,
+                      delay: 0.04 * Math.min(index, 4),
+                      ease: "easeOut",
+                    }}
+                  >
                     <a
                       href={`#${item.id}`}
                       onClick={(event) => handleNavigate(event, item.id)}
@@ -189,7 +213,7 @@ function Navbar() {
                         <span className="h-[6px] w-[6px] rounded-full bg-[#2563EB]" />
                       )}
                     </a>
-                  </li>
+                  </motion.li>
                 );
               })}
             </ul>

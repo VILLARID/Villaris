@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import useAppMotion from "../../hooks/useAppMotion";
 import { ArrowRight, Mail } from "lucide-react";
+import { fadeSlide, staggerContainer } from "../../utils/motion";
 
 function GithubIcon() {
   return (
@@ -31,14 +33,14 @@ function ContactRow({ icon, label, value, href, accent = "blue" }) {
       rel={isExternal ? "noreferrer" : undefined}
       className="group flex items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg"
     >
-      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F8FAFC] ${iconColor}`}>
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F8FAFC] transition-colors duration-200 group-hover:bg-[#EFF6FF] ${iconColor}`}>
         {icon}
       </span>
       <span className="min-w-0">
         <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
           {label}
         </span>
-        <span className="mt-0.5 block truncate text-[14px] font-semibold text-[#0F172A] transition-colors duration-200 group-hover:text-[#2563EB]">
+        <span className="mt-0.5 block truncate text-[14px] font-semibold text-[#0F172A] transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[#2563EB]">
           {value}
         </span>
       </span>
@@ -47,6 +49,8 @@ function ContactRow({ icon, label, value, href, accent = "blue" }) {
 }
 
 function ContactCard({ emailHref, githubHref, linkedinHref }) {
+  const { shouldReduceMotion } = useAppMotion();
+
   return (
     <motion.aside
       initial={{ opacity: 0, x: 24 }}
@@ -59,12 +63,24 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
         CONTACT
       </h3>
 
-      {/* Detalles de contacto */}
-      <div className="mt-8 space-y-6">
-        <ContactRow icon={<Mail />} label="Email" value="Enviar correo" href={emailHref} />
-        <ContactRow icon={<LinkedinIcon />} label="LinkedIn" value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
-        <ContactRow icon={<GithubIcon />} label="GitHub" value="github.com/VILLARIS" href={githubHref} accent="github" />
-      </div>
+      {/* Detalles de contacto con stagger */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-40px" }}
+        variants={shouldReduceMotion ? undefined : staggerContainer(0.08, 0.1)}
+        className="mt-8 space-y-6"
+      >
+        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+          <ContactRow icon={<Mail />} label="Email" value="Enviar correo" href={emailHref} />
+        </motion.div>
+        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+          <ContactRow icon={<LinkedinIcon />} label="LinkedIn" value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
+        </motion.div>
+        <motion.div variants={shouldReduceMotion ? undefined : fadeSlide(10)}>
+          <ContactRow icon={<GithubIcon />} label="GitHub" value="github.com/VILLARIS" href={githubHref} accent="github" />
+        </motion.div>
+      </motion.div>
 
       {/* Divider */}
       <div className="mt-8 border-t border-[#E2E8F0]" />
