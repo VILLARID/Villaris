@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { Code2, ExternalLink } from "lucide-react";
 import ProjectPreview from "./ProjectPreview";
 
 const statusStyles = {
@@ -13,6 +13,11 @@ const statusStyles = {
     bg: "bg-[#FFFBEB]",
     dot: "bg-[#D97706]",
   },
+  live: {
+    text: "text-[#1D4ED8]",
+    bg: "bg-[#EFF6FF]",
+    dot: "bg-[#2563EB]",
+  },
   planned: {
     text: "text-[#1D4ED8]",
     bg: "bg-[#EFF6FF]",
@@ -20,9 +25,28 @@ const statusStyles = {
   },
 };
 
+const statusMap = {
+  completed: { type: "completed", label: "Completed" },
+  "in-progress": { type: "progress", label: "In Progress" },
+  progress: { type: "progress", label: "In Progress" },
+  live: { type: "live", label: "Live" },
+  planned: { type: "planned", label: "Planned" },
+};
+
+function getStatus(status) {
+  if (statusMap[status]) return statusMap[status];
+  return { type: "completed", label: status || "Completed" };
+}
+
 function ProjectCard({ project, index = 0 }) {
-  const style = statusStyles[project.statusType] || statusStyles.completed;
-  const ctaHref = project.demo || project.github;
+  const status = getStatus(project.status);
+  const style = statusStyles[status.type] || statusStyles.completed;
+  const technologies = Array.isArray(project.technologies)
+    ? project.technologies
+    : [];
+  const imageUrl = project.image_url;
+  const primaryHref = project.project_url || project.github_url;
+  const githubHref = project.github_url;
 
   return (
     <motion.article
@@ -37,10 +61,11 @@ function ProjectCard({ project, index = 0 }) {
     >
       {/* Preview */}
       <div className="aspect-[16/10] w-full overflow-hidden bg-[#F8FAFC]">
-        {project.image ? (
+        {imageUrl ? (
           <img
-            src={project.image}
-            alt={project.name}
+            src={imageUrl}
+            alt={project.title}
+            loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : (
@@ -55,54 +80,61 @@ function ProjectCard({ project, index = 0 }) {
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] ${style.bg} ${style.text}`}
           >
             <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
-            {project.status}
+            {status.label}
           </span>
           <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#94A3B8]">
             {project.year}
           </span>
-          {project.identifier && (
-            <span className="ml-auto text-[10px] font-medium uppercase tracking-[0.1em] text-[#CBD5E1]">
-              {project.identifier}
-            </span>
-          )}
         </div>
 
         <h3 className="mt-4 text-[20px] font-bold leading-snug tracking-[-0.01em] text-[#0F172A]">
-          {project.name}
+          {project.title}
         </h3>
 
         <p className="mt-2.5 text-[14px] leading-relaxed text-[#64748B]">
-          {project.description}
+          {project.description || project.short_description}
         </p>
 
         {/* Tags */}
         <div className="mt-5 flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
+          {technologies.map((tech) => (
             <span
-              key={tech}
+              key={tech.id ?? tech.name}
               className="rounded-md border border-[#E2E8F0] bg-[#F8FAFC] px-2.5 py-1 text-[10px] font-medium text-[#475569]"
             >
-              {tech}
+              {tech.name}
             </span>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="mt-auto pt-7">
-          {ctaHref ? (
+        <div className="mt-auto flex items-center justify-between gap-3 pt-7">
+          {primaryHref ? (
             <a
-              href={ctaHref}
+              href={primaryHref}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               View project
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           ) : (
             <span className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[#94A3B8]">
               Coming soon
             </span>
+          )}
+
+          {githubHref && (
+            <a
+              href={githubHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#E2E8F0] text-[#475569] transition-colors duration-200 hover:border-[#CBD5E1] hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <Code2 className="h-4 w-4" />
+            </a>
           )}
         </div>
       </div>

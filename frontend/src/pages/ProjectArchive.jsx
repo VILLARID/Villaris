@@ -1,121 +1,122 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ProjectCard from "../components/Project/ProjectCard";
 import ProjectFilters from "../components/Project/ProjectFilters";
 import SectionLabel from "../components/ui/SectionLabel";
 import Reveal from "../components/ui/Reveal";
+import { getProjects } from "../services/projects.api";
 
-const projects = [
-  {
-    identifier: "PROJECT_001",
-    name: "Ecommerce Platform",
-    year: "2024",
-    status: "COMPLETED",
-    statusType: "completed",
-    category: "WEB APPLICATIONS",
-    description:
-      "Plataforma moderna de comercio electrónico con foco en gestión, escalabilidad y experiencia de usuario.",
-    technologies: ["React", "Tailwind CSS", "Node.js", "PostgreSQL"],
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    image: null,
-  },
-  {
-    identifier: "PROJECT_002",
-    name: "Task Management System",
-    year: "2024",
-    status: "COMPLETED",
-    statusType: "completed",
-    category: "WEB APPLICATIONS",
-    description:
-      "Sistema de gestión de tareas y equipos con seguimiento en tiempo real.",
-    technologies: ["React", "Express", "MongoDB", "JWT"],
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    image: null,
-  },
-  {
-    identifier: "PROJECT_003",
-    name: "API Gateway Service",
-    year: "2023",
-    status: "COMPLETED",
-    statusType: "completed",
-    category: "BACKEND SYSTEMS",
-    description:
-      "Servicio backend para autenticación, rate limiting y monitoreo de APIs.",
-    technologies: ["Node.js", "Redis", "Docker", "REST API"],
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    image: null,
-  },
-  {
-    identifier: "PROJECT_004",
-    name: "Analytics Dashboard",
-    year: "2025",
-    status: "IN PROGRESS",
-    statusType: "progress",
-    category: "DASHBOARDS",
-    description:
-      "Panel de analítica para visualizar métricas y rendimiento del sistema en tiempo real.",
-    technologies: ["React", "Python", "FastAPI", "PostgreSQL"],
-    github: "https://github.com/",
-    demo: "",
-    image: null,
-  },
-  {
-    identifier: "PROJECT_005",
-    name: "Mobile App Android",
-    year: "2025",
-    status: "IN PROGRESS",
-    statusType: "progress",
-    category: "MOBILE",
-    description:
-      "Aplicación móvil nativa para Android con arquitectura MVVM y sincronización en tiempo real.",
-    technologies: ["Kotlin", "Jetpack Compose", "Firebase", "Room"],
-    github: "https://github.com/",
-    demo: "",
-    image: null,
-  },
-];
-
-const categories = [
-  "ALL",
-  "WEB APPLICATIONS",
-  "BACKEND SYSTEMS",
-  "DASHBOARDS",
-  "MOBILE",
-];
+const allLabel = "ALL";
 
 const sortOrders = {
-  latest: (a, b) => b.year.localeCompare(a.year),
-  oldest: (a, b) => a.year.localeCompare(b.year),
-  az: (a, b) => a.name.localeCompare(b.name),
+  latest: (a, b) =>
+    b.year - a.year ||
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  oldest: (a, b) =>
+    a.year - b.year ||
+    new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  az: (a, b) => (a.title || "").localeCompare(b.title || ""),
 };
 
+function ProjectCardSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
+      <div className="aspect-[16/10] w-full animate-pulse bg-[#F1F5F9]" />
+      <div className="flex flex-col p-6 sm:p-7">
+        <div className="flex items-center gap-3">
+          <div className="h-5 w-24 animate-pulse rounded-full bg-[#E2E8F0]" />
+          <div className="h-3 w-10 animate-pulse rounded bg-[#EEF2F7]" />
+        </div>
+        <div className="mt-4 h-5 w-3/4 animate-pulse rounded bg-[#E2E8F0]" />
+        <div className="mt-2.5 h-3 w-full animate-pulse rounded bg-[#E2E8F0]" />
+        <div className="mt-1.5 h-3 w-5/6 animate-pulse rounded bg-[#E2E8F0]" />
+        <div className="mt-5 flex flex-wrap gap-2">
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProjectArchive() {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const [activeCategory, setActiveCategory] = useState(allLabel);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("latest");
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadProjects() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await getProjects();
+        if (active) {
+          setProjects(Array.isArray(data) ? data : []);
+        }
+      } catch (loadError) {
+        console.error("Failed to load projects:", loadError.message);
+        if (active) {
+          setError(loadError.message);
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadProjects();
+
+    return () => {
+      active = false;
+    };
+  }, [reloadKey]);
+
+  const categories = [
+    allLabel,
+    ...new Set(
+      projects
+        .map((project) => project.category?.toUpperCase())
+        .filter(Boolean)
+    ),
+  ];
 
   const normalizedQuery = query.trim().toLowerCase();
 
   const filteredProjects = projects
     .filter((project) => {
+      const projectCategory = project.category?.toUpperCase();
       const matchesCategory =
-        activeCategory === "ALL" || project.category === activeCategory;
+        activeCategory === allLabel || projectCategory === activeCategory;
       if (!matchesCategory) return false;
       if (!normalizedQuery) return true;
+
+      const technologyNames = (project.technologies || []).map((tech) => tech.name);
       const haystack = [
-        project.name,
+        project.title,
+        project.short_description,
         project.description,
         project.category,
-        ...project.technologies,
+        ...technologyNames,
       ]
         .join(" ")
         .toLowerCase();
+
       return haystack.includes(normalizedQuery);
     })
     .sort(sortOrders[sort] || sortOrders.latest);
+
+  const showEmptyState = !loading && !error && projects.length === 0;
+  const showNoMatch = !loading && !error && projects.length > 0 && filteredProjects.length === 0;
 
   return (
     <section
@@ -176,28 +177,60 @@ function ProjectArchive() {
 
         {/* Grid de cards */}
         <div className="mt-8">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.length > 0 ? (
-              <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
-                {filteredProjects.map((project, index) => (
-                  <ProjectCard
-                    key={project.identifier}
-                    project={project}
-                    index={index}
-                  />
-                ))}
-              </div>
-            ) : (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="py-16 text-center text-sm text-[#64748B]"
+          {loading ? (
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }, (_, index) => (
+                <ProjectCardSkeleton key={index} />
+              ))}
+            </div>
+          ) : error ? (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mx-auto max-w-[560px] rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white p-10 text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)]"
+            >
+              <p className="text-[15px] font-medium text-[#0F172A]">
+                Unable to load projects.
+              </p>
+              <p className="mt-2 text-[13px] leading-relaxed text-[#64748B]">
+                The projects archive could not be reached. Please try again.
+              </p>
+              <button
+                type="button"
+                onClick={() => setReloadKey((key) => key + 1)}
+                className="mt-6 inline-flex h-10 items-center rounded-full bg-[#0F172A] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                No hay proyectos que coincidan con tu búsqueda.
-              </motion.p>
-            )}
-          </AnimatePresence>
+                Retry
+              </button>
+            </motion.div>
+          ) : (
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.length > 0 ? (
+                <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
+                  {filteredProjects.map((project, index) => (
+                    <ProjectCard
+                      key={project.id ?? project.slug ?? index}
+                      project={project}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="py-16 text-center text-sm text-[#64748B]"
+                >
+                  {showEmptyState
+                    ? "No projects available yet."
+                    : showNoMatch
+                      ? "No hay proyectos que coincidan con tu búsqueda."
+                      : ""}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          )}
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import projectsRouter from "./routes/projects.routes.js";
 
 const app = express();
 
@@ -15,5 +16,7 @@ app.get("/api/health", (req, res) => {
     message: "Villaris API is running",
   });
 });
+
+app.use("/api/projects", projectsRouter);
 
 export default app;
