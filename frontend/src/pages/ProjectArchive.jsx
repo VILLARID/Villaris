@@ -20,20 +20,20 @@ const sortOrders = {
 
 function ProjectCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-      <div className="aspect-[16/10] w-full animate-pulse bg-[#F1F5F9]" />
+    <div className="overflow-hidden rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white shadow-[0_2px_10px_rgba(15,23,42,0.03)] dark:border-white/10 dark:bg-[#0D131D] dark:shadow-none">
+      <div className="aspect-[16/10] w-full animate-pulse bg-[#F1F5F9] dark:bg-[#16202F]" />
       <div className="flex flex-col p-6 sm:p-7">
         <div className="flex items-center gap-3">
-          <div className="h-5 w-24 animate-pulse rounded-full bg-[#E2E8F0]" />
-          <div className="h-3 w-10 animate-pulse rounded bg-[#EEF2F7]" />
+          <div className="h-5 w-24 animate-pulse rounded-full bg-[#E2E8F0] dark:bg-white/10" />
+          <div className="h-3 w-10 animate-pulse rounded bg-[#EEF2F7] dark:bg-white/[0.07]" />
         </div>
-        <div className="mt-4 h-5 w-3/4 animate-pulse rounded bg-[#E2E8F0]" />
-        <div className="mt-2.5 h-3 w-full animate-pulse rounded bg-[#E2E8F0]" />
-        <div className="mt-1.5 h-3 w-5/6 animate-pulse rounded bg-[#E2E8F0]" />
+        <div className="mt-4 h-5 w-3/4 animate-pulse rounded bg-[#E2E8F0] dark:bg-white/10" />
+        <div className="mt-2.5 h-3 w-full animate-pulse rounded bg-[#E2E8F0] dark:bg-white/10" />
+        <div className="mt-1.5 h-3 w-5/6 animate-pulse rounded bg-[#E2E8F0] dark:bg-white/10" />
         <div className="mt-5 flex flex-wrap gap-2">
-          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
-          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
-          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0]" />
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0] dark:bg-white/10" />
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0] dark:bg-white/10" />
+          <div className="h-5 w-16 animate-pulse rounded-md bg-[#E2E8F0] dark:bg-white/10" />
         </div>
       </div>
     </div>
@@ -121,10 +121,10 @@ function ProjectArchive() {
   return (
     <section
       id="project-archive"
-      className="relative overflow-x-clip bg-white pt-6 pb-20 sm:pt-8 sm:pb-24"
+      className="relative overflow-x-clip bg-white pt-6 pb-20 sm:pt-8 sm:pb-24 dark:bg-[#070B11]"
     >
       {/* Fondo: grid fino + radial azul */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px] dark:bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)]" />
       <div className="pointer-events-none absolute -right-48 -top-48 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.04),transparent_70%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]">
@@ -136,7 +136,7 @@ function ProjectArchive() {
             as="h2"
             y={32}
             duration={0.8}
-            className="mt-6 text-[clamp(2.8rem,4.6vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#0F172A]"
+            className="mt-6 text-[clamp(2.8rem,4.6vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#0F172A] dark:text-[#F5F7FA]"
           >
             PROJECT
             <br />
@@ -154,7 +154,7 @@ function ProjectArchive() {
           <Reveal
             y={18}
             delay={0.16}
-            className="mt-7 max-w-[620px] text-[15px] leading-[1.75] text-[#64748B] sm:text-[16px]"
+            className="mt-7 max-w-[620px] text-[15px] leading-[1.75] text-[#64748B] dark:text-[#9BA6B5] sm:text-[16px]"
           >
             Una selección de sistemas, aplicaciones y herramientas que he
             diseñado y construido de principio a fin: desde la interfaz hasta el
@@ -187,18 +187,18 @@ function ProjectArchive() {
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mx-auto max-w-[560px] rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white p-10 text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)]"
+              className="mx-auto max-w-[560px] rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white p-10 text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] dark:border-white/10 dark:bg-[#0D131D] dark:shadow-none"
             >
-              <p className="text-[15px] font-medium text-[#0F172A]">
+              <p className="text-[15px] font-medium text-[#0F172A] dark:text-[#F5F7FA]">
                 Unable to load projects.
               </p>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#64748B]">
+              <p className="mt-2 text-[13px] leading-relaxed text-[#64748B] dark:text-[#9BA6B5]">
                 The projects archive could not be reached. Please try again.
               </p>
               <button
                 type="button"
                 onClick={() => setReloadKey((key) => key + 1)}
-                className="mt-6 inline-flex h-10 items-center rounded-full bg-[#0F172A] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="mt-6 inline-flex h-10 items-center rounded-full bg-[#0F172A] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:focus-visible:ring-offset-[#070B11]"
               >
                 Retry
               </button>
@@ -220,7 +220,7 @@ function ProjectArchive() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="py-16 text-center text-sm text-[#64748B]"
+                  className="py-16 text-center text-sm text-[#64748B] dark:text-[#9BA6B5]"
                 >
                   {showEmptyState
                     ? "No projects available yet."

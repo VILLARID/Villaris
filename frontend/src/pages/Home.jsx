@@ -7,13 +7,13 @@ function Home() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-white"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-white dark:bg-[#070B11]"
     >
       {/* Fondo decorativo */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         {/* Grid tenue con respiración ambiental */}
         <motion.div
-          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)]"
           animate={{ opacity: [1, 0.82, 1] }}
           transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
         />
@@ -51,7 +51,7 @@ function Home() {
         transition={{ duration: 0.8, delay: 1.2 }}
         className="relative z-10 hidden items-center justify-center gap-4 pb-10 md:flex"
       >
-        <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8]">
+        <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8] dark:text-[#7E8C9F]">
           Scroll to explore
         </span>
         <motion.span

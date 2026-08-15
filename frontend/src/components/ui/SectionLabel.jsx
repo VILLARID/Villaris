@@ -17,7 +17,7 @@ function SectionLabel({ number, label }) {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-        className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#64748B]"
+        className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#64748B] dark:text-[#9BA6B5]"
       >
         {label}
       </motion.span>

@@ -6,6 +6,44 @@
   <link rel="icon" type="image/png" href="/Logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Villaris — Digital Identity</title>
+  <script>
+    (function () {
+      try {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("theme");
+        } catch (e) {}
+        var theme;
+        if (stored === "light" || stored === "dark") {
+          theme = stored;
+        } else {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        var root = document.documentElement;
+        root.classList.toggle("dark", theme === "dark");
+        root.style.colorScheme = theme;
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    html {
+      background: #ffffff;
+      color-scheme: light;
+    }
+    html.dark {
+      background: #05080d;
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      background: #ffffff;
+    }
+    html.dark body {
+      background: #05080d;
+    }
+  </style>
 </head>
 
 <body>

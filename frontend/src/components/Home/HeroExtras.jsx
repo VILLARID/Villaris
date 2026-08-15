@@ -34,17 +34,17 @@ function HeroExtras() {
           return (
             <Fragment key={skill.label}>
               {index > 0 && (
-                <span aria-hidden="true" className="h-[22px] w-px bg-[#E2E8F0]" />
+                <span aria-hidden="true" className="h-[22px] w-px bg-[#E2E8F0] dark:bg-white/10" />
               )}
               <motion.div
                 variants={skillItem}
                 className="flex items-center gap-2"
               >
                 <Icon
-                  className="h-[17px] w-[17px] text-slate-500 transition-transform duration-300 ease-out hover:scale-110"
+                  className="h-[17px] w-[17px] text-slate-500 transition-transform duration-300 ease-out hover:scale-110 dark:text-[#7E8C9F]"
                   strokeWidth={1.8}
                 />
-                <span className="text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-600">
+                <span className="text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-600 dark:text-[#CBD5E1]">
                   {skill.label}
                 </span>
               </motion.div>
@@ -63,7 +63,7 @@ function HeroExtras() {
         <motion.a
           href="#project-archive"
           {...everHover}
-          className="group inline-flex h-[52px] items-center gap-2 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          className="group inline-flex h-[52px] items-center gap-2 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:hover:shadow-[0_0_28px_rgba(37,99,235,0.22)] dark:focus-visible:ring-offset-[#070B11]"
         >
           VIEW PROJECTS
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
@@ -72,7 +72,7 @@ function HeroExtras() {
         <motion.a
           href="#system-ready"
           {...everHover}
-          className="inline-flex h-[52px] items-center gap-2.5 rounded-xl border border-[#E2E8F0] bg-white px-6 text-[13px] font-semibold tracking-wide text-[#0F172A] transition-colors duration-200 hover:bg-[#F8FAFC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          className="inline-flex h-[52px] items-center gap-2.5 rounded-xl border border-[#E2E8F0] bg-white px-6 text-[13px] font-semibold tracking-wide text-[#0F172A] transition-colors duration-200 hover:bg-[#F8FAFC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:bg-[#0D131D] dark:text-[#F5F7FA] dark:hover:bg-[#111A2A] dark:focus-visible:ring-offset-[#070B11]"
         >
           CONTACT ME
           <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />

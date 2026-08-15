@@ -22,14 +22,14 @@ function SystemReady() {
   return (
     <section
       id="system-ready"
-      className="relative overflow-x-clip bg-white pt-6 pb-20 sm:pt-8 sm:pb-24"
+      className="relative overflow-x-clip bg-white pt-6 pb-20 sm:pt-8 sm:pb-24 dark:bg-[#070B11]"
     >
       {/* Fondo: grid fino + radial azul + detalles tenues */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(226,232,240,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.35)_1px,transparent_1px)] bg-[size:72px_72px] dark:bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)]" />
       <div className="pointer-events-none absolute -right-48 top-16 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.04),transparent_70%)]" />
-      <span aria-hidden="true" className="pointer-events-none absolute left-[6%] top-[30%] text-[10px] text-[#CBD5E1]">+</span>
+      <span aria-hidden="true" className="pointer-events-none absolute left-[6%] top-[30%] text-[10px] text-[#CBD5E1] dark:text-[#5D6B80]">+</span>
       <span aria-hidden="true" className="pointer-events-none absolute left-[46%] top-[78%] h-1 w-1 rounded-full bg-[#2563EB]/30" />
-      <span aria-hidden="true" className="pointer-events-none absolute bottom-[18%] right-[4%] text-[10px] text-[#CBD5E1]">+</span>
+      <span aria-hidden="true" className="pointer-events-none absolute bottom-[18%] right-[4%] text-[10px] text-[#CBD5E1] dark:text-[#5D6B80]">+</span>
 
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]">
         {/* Composición 2 columnas */}
@@ -44,14 +44,14 @@ function SystemReady() {
               duration={0.8}
               className="mt-7 text-[clamp(3rem,5vw,5.8rem)] font-bold leading-[0.96] tracking-[-0.04em]"
             >
-              <span className="block text-[#0F172A]">LET'S BUILD</span>
+              <span className="block text-[#0F172A] dark:text-[#F5F7FA]">LET'S BUILD</span>
               <span className="block text-[#2563EB]">SOMETHING GREAT.</span>
             </Reveal>
 
             <Reveal
               y={18}
               delay={0.08}
-              className="mt-8 max-w-[600px] text-[16px] leading-[1.7] text-[#64748B] sm:text-[17px]"
+              className="mt-8 max-w-[600px] text-[16px] leading-[1.7] text-[#64748B] dark:text-[#9BA6B5] sm:text-[17px]"
             >
               ¿Tienes una idea, un proyecto o simplemente quieres conversar sobre
               tecnología? Escríbeme y veamos qué podemos construir.
@@ -66,7 +66,7 @@ function SystemReady() {
                 whileHover={{ y: -1, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="group inline-flex h-[54px] items-center gap-2.5 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="group inline-flex h-[54px] items-center gap-2.5 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:hover:shadow-[0_0_28px_rgba(37,99,235,0.22)] dark:focus-visible:ring-offset-[#070B11]"
               >
                 GET IN TOUCH
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
@@ -82,14 +82,14 @@ function SystemReady() {
               {socialLinks.map((link, index) => (
                 <span key={link.label} className="flex items-center gap-x-9">
                   {index > 0 && (
-                    <span aria-hidden="true" className="h-[18px] w-px bg-[#E2E8F0]" />
+                    <span aria-hidden="true" className="h-[18px] w-px bg-[#E2E8F0] dark:bg-white/10" />
                   )}
                   <a
                     href={link.href}
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noreferrer" : undefined}
                     download={link.download || undefined}
-                    className="group flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.04em] text-[#334155] transition-colors duration-200 hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md sm:text-[13px]"
+                    className="group flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.04em] text-[#334155] transition-colors duration-200 hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md dark:text-[#C7D0DC] dark:hover:text-white dark:focus-visible:ring-offset-[#070B11] sm:text-[13px]"
                   >
                     {link.label}
                     <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5">
@@ -116,21 +116,21 @@ function SystemReady() {
           as="footer"
           y={18}
           delay={0.3}
-          className="mt-20 flex flex-col gap-5 border-t border-[#E2E8F0] pb-2 pt-7 sm:flex-row sm:items-center sm:justify-between"
+          className="mt-20 flex flex-col gap-5 border-t border-[#E2E8F0] pb-2 pt-7 sm:flex-row sm:items-center sm:justify-between dark:border-white/10"
         >
           <div>
-            <p className="text-[28px] font-bold uppercase tracking-[0.1em] text-[#0F172A]">
+            <p className="text-[28px] font-bold uppercase tracking-[0.1em] text-[#0F172A] dark:text-[#F5F7FA]">
               VILLARIS
             </p>
-            <p className="mt-1 text-[13px] text-[#64748B]">
+            <p className="mt-1 text-[13px] text-[#64748B] dark:text-[#9BA6B5]">
               Farid Tabare Matos Villarroel
             </p>
           </div>
           <div className="sm:text-right">
-            <p className="text-[14px] font-semibold text-[#0F172A]">
+            <p className="text-[14px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
               Software Engineer
             </p>
-            <p className="mt-1 text-[13px] text-[#64748B]">
+            <p className="mt-1 text-[13px] text-[#64748B] dark:text-[#9BA6B5]">
               Perú / {currentYear}
             </p>
           </div>

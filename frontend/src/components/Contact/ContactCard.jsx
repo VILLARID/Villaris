@@ -23,23 +23,23 @@ function LinkedinIcon() {
 
 function ContactRow({ icon, label, value, href, accent = "blue" }) {
   const isExternal = href?.startsWith("http");
-  const iconColor = accent === "github" ? "text-[#0F172A]" : "text-[#2563EB]";
+  const iconColor = accent === "github" ? "text-[#0F172A] dark:text-white" : "text-[#2563EB]";
 
   return (
     <a
       href={href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className="group flex items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg"
+      className="group flex items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#0B1018] rounded-lg"
     >
-      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F8FAFC] transition-colors duration-200 group-hover:bg-[#EFF6FF] ${iconColor}`}>
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F8FAFC] transition-colors duration-200 group-hover:bg-[#EFF6FF] dark:bg-[#111A2A] dark:group-hover:bg-blue-500/15 ${iconColor}`}>
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+        <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
           {label}
         </span>
-        <span className="mt-0.5 block truncate text-[14px] font-semibold text-[#0F172A] transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[#2563EB]">
+        <span className="mt-0.5 block truncate text-[14px] font-semibold text-[#0F172A] transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[#2563EB] dark:text-[#F5F7FA] dark:group-hover:text-[#60A5FA]">
           {value}
         </span>
       </span>
@@ -54,9 +54,9 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-[rgba(255,255,255,0.92)] p-9 shadow-[0_16px_50px_rgba(15,23,42,0.06)] sm:p-10"
+      className="rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-[rgba(255,255,255,0.92)] p-9 shadow-[0_16px_50px_rgba(15,23,42,0.06)] sm:p-10 dark:border-white/10 dark:bg-[rgba(11,17,26,0.92)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.4)]"
     >
-      <h3 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#0F172A]">
+      <h3 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#0F172A] dark:text-[#F5F7FA]">
         CONTACT
       </h3>
 
@@ -80,30 +80,30 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
       </motion.div>
 
       {/* Divider */}
-      <div className="mt-8 border-t border-[#E2E8F0]" />
+      <div className="mt-8 border-t border-[#E2E8F0] dark:border-white/10" />
 
       {/* Disponibilidad */}
       <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-3">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
             Status
           </p>
-          <p className="mt-1.5 flex items-center gap-2 text-[13px] font-semibold text-[#059669]">
+          <p className="mt-1.5 flex items-center gap-2 text-[13px] font-semibold text-[#059669] dark:text-emerald-400">
             <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
             Available for work
           </p>
         </div>
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
             Location
           </p>
-          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A]">Perú</p>
+          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">Perú</p>
         </div>
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
             Response
           </p>
-          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A]">
+          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
             Open to conversations
           </p>
         </div>
@@ -114,7 +114,7 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
         href={emailHref}
         target="_blank"
         rel="noreferrer"
-        className="group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md"
+        className="group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md dark:text-[#60A5FA] dark:hover:text-[#93C5FD] dark:focus-visible:ring-offset-[#0B1018]"
       >
         SEND ME AN EMAIL
         <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />

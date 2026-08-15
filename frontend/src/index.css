@@ -1,19 +1,67 @@
 @import "tailwindcss";
 @import "lenis/dist/lenis.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
 html {
-    background: #020609;
+    background: #ffffff;
     scroll-behavior: auto;
+}
+
+html.dark {
+    background: #05080d;
 }
 
 body {
     margin: 0;
     min-width: 320px;
-    background: #020609;
+    background: #ffffff;
+}
+
+html.dark body {
+    background: #05080d;
 }
 
 * {
     box-sizing: border-box;
+}
+
+body,
+header,
+footer,
+nav,
+section,
+article,
+aside,
+main,
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+a,
+button,
+input,
+select,
+li,
+ul {
+    transition:
+        background-color 300ms ease,
+        border-color 300ms ease,
+        color 300ms ease,
+        box-shadow 300ms ease,
+        fill 300ms ease,
+        stroke 300ms ease;
 }
 
 section[id] {
@@ -26,8 +74,8 @@ a {
 }
 
 ::selection {
-    color: #020609;
-    background: #22d3ee;
+    color: #ffffff;
+    background: #2563eb;
 }
 
 ::-webkit-scrollbar {
@@ -35,13 +83,17 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-    background: #020609;
+    background: #ffffff;
+}
+
+html.dark ::-webkit-scrollbar-track {
+    background: #05080d;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(34, 211, 238, 0.3);
+    background: rgba(37, 99, 235, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(34, 211, 238, 0.6);
+    background: rgba(37, 99, 235, 0.6);
 }

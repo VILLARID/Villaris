@@ -117,14 +117,14 @@ function HeroVisual() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
-          className="absolute left-1/2 top-1/2 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(226,232,240,0.6)]"
+          className="absolute left-1/2 top-1/2 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(226,232,240,0.6)] dark:border-white/10"
         />
         {/* Círculo interior */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
-          className="absolute left-1/2 top-1/2 aspect-square w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E2E8F0]"
+          className="absolute left-1/2 top-1/2 aspect-square w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E2E8F0] dark:border-white/10"
         />
       </div>
 
@@ -171,18 +171,18 @@ function HeroVisual() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-        className="absolute left-0 top-[32%] z-20 hidden rounded-xl border border-[rgba(226,232,240,0.8)] bg-[rgba(255,255,255,0.82)] px-4 py-3 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-md sm:block"
+        className="absolute left-0 top-[32%] z-20 hidden rounded-xl border border-[rgba(226,232,240,0.8)] bg-[rgba(255,255,255,0.82)] px-4 py-3 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-md dark:border-white/10 dark:bg-[rgba(11,17,26,0.82)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] sm:block"
       >
         <motion.div
           animate={PULSE_STATUS}
           transition={{ ...pulseTransition, duration: 6 }}
         >
-          <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8]">
+          <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8] dark:text-[#7E8C9F]">
             Status
           </p>
           <div className="mt-1 flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#10B981]" />
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0F172A]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0F172A] dark:text-[#F5F7FA]">
               Online
             </p>
           </div>
@@ -194,23 +194,23 @@ function HeroVisual() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
-        className="absolute right-0 top-[14%] z-20 flex h-12 w-12 items-center justify-center rounded-xl border border-[#E2E8F0] bg-white/90 shadow-sm"
+        className="absolute right-0 top-[14%] z-20 flex h-12 w-12 items-center justify-center rounded-xl border border-[#E2E8F0] bg-white/90 shadow-sm dark:border-white/10 dark:bg-[#0B1018]/90 dark:shadow-none"
       >
         <motion.div
           animate={PULSE_EMBLEM}
           transition={{ ...pulseTransition, duration: 7, delay: 0.6 }}
           className="flex h-full w-full items-center justify-center"
         >
-          <span className="text-lg font-bold text-[#2563EB]">V</span>
+          <span className="text-lg font-bold text-[#2563EB] dark:text-[#60A5FA]">V</span>
         </motion.div>
       </motion.div>
 
       {/* Micro detalles tenues */}
-      <span aria-hidden="true" className="absolute left-[8%] top-[14%] text-[10px] text-[#CBD5E1]">+</span>
-      <span aria-hidden="true" className="absolute right-[14%] top-[40%] h-1 w-1 rounded-full bg-[#CBD5E1]" />
+      <span aria-hidden="true" className="absolute left-[8%] top-[14%] text-[10px] text-[#CBD5E1] dark:text-[#5D6B80]">+</span>
+      <span aria-hidden="true" className="absolute right-[14%] top-[40%] h-1 w-1 rounded-full bg-[#CBD5E1] dark:bg-white/20" />
       <span aria-hidden="true" className="absolute bottom-[14%] left-[16%] h-1 w-1 rounded-full bg-[#2563EB]/40" />
-      <span aria-hidden="true" className="absolute bottom-[8%] right-[18%] text-[10px] text-[#CBD5E1]">+</span>
-      <span aria-hidden="true" className="absolute left-[44%] top-[4%] h-1 w-1 rounded-full bg-[#CBD5E1]" />
+      <span aria-hidden="true" className="absolute bottom-[8%] right-[18%] text-[10px] text-[#CBD5E1] dark:text-[#5D6B80]">+</span>
+      <span aria-hidden="true" className="absolute left-[44%] top-[4%] h-1 w-1 rounded-full bg-[#CBD5E1] dark:bg-white/20" />
     </div>
   );
 }
