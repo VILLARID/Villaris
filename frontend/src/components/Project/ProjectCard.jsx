@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Code2, ExternalLink } from "lucide-react";
 import ProjectPreview from "./ProjectPreview";
 import useCardTilt from "../../hooks/useCardTilt";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const statusStyles = {
   completed: {
@@ -40,8 +41,10 @@ function getStatus(status) {
 }
 
 function ProjectCard({ project, index = 0 }) {
+  const { t } = useLanguage();
   const status = getStatus(project.status);
   const style = statusStyles[status.type] || statusStyles.completed;
+  const statusLabel = t(`projectCard.status.${status.type}`) || status.label;
   const technologies = Array.isArray(project.technologies)
     ? project.technologies
     : [];
@@ -91,7 +94,7 @@ function ProjectCard({ project, index = 0 }) {
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] ${style.bg} ${style.text}`}
           >
             <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
-            {status.label}
+            {statusLabel}
           </span>
           <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#94A3B8] dark:text-[#7E8C9F]">
             {project.year}
@@ -139,12 +142,12 @@ function ProjectCard({ project, index = 0 }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-[#60A5FA] dark:hover:text-[#93C5FD] dark:focus-visible:ring-offset-[#0D131D]"
             >
-              View project
+              {t("projectCard.viewProject")}
               <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           ) : (
             <span className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[#94A3B8] dark:text-[#7E8C9F]">
-              Coming soon
+              {t("projectCard.comingSoon")}
             </span>
           )}
 
@@ -153,7 +156,7 @@ function ProjectCard({ project, index = 0 }) {
               href={githubHref}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub repository"
+              aria-label={t("projectCard.githubAria")}
               className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#E2E8F0] text-[#475569] transition-colors duration-200 hover:border-[#CBD5E1] hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-[#A7B1C0] dark:hover:border-white/20 dark:hover:text-white dark:focus-visible:ring-offset-[#0D131D]"
             >
               <Code2 className="h-4 w-4" />

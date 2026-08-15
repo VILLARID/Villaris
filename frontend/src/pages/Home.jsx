@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../i18n/LanguageContext";
 import HeroIntro from "../components/Home/HeroIntro";
 import HeroVisual from "../components/Home/HeroVisual";
 import HeroExtras from "../components/Home/HeroExtras";
 
 function Home() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="home"
@@ -52,7 +55,7 @@ function Home() {
         className="relative z-10 hidden items-center justify-center gap-4 pb-10 md:flex"
       >
         <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8] dark:text-[#7E8C9F]">
-          Scroll to explore
+          {t("home.scrollToExplore")}
         </span>
         <motion.span
           aria-hidden="true"

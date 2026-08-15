@@ -3,14 +3,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { EASE_OUT_EXPO, getScrollDuration } from "../../utils/scrollUtils";
+import { useLanguage } from "../../i18n/LanguageContext";
 import ThemeToggle from "./ThemeToggle";
+import LanguageSelector from "./LanguageSelector";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "core-system", label: "Core" },
-  { id: "project-archive", label: "Projects" },
-  { id: "system-ready", label: "Contact" },
+  { id: "home", key: "home" },
+  { id: "about", key: "about" },
+  { id: "core-system", key: "core" },
+  { id: "project-archive", key: "projects" },
+  { id: "system-ready", key: "contact" },
 ];
 
 const LABEL_GAP = 24;
@@ -26,6 +28,7 @@ function getNavbarBottom() {
 
 function Navbar() {
   const lenis = useLenis();
+  const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,7 +97,7 @@ function Navbar() {
         <a
           href="#home"
           onClick={(event) => handleNavigate(event, "home")}
-          aria-label="VILLARIS — Inicio"
+          aria-label={t("nav.logoAria")}
           className="group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#0B1018] rounded-md"
         >
           <span className="text-lg font-bold uppercase tracking-[0.16em] text-[#0B1220] dark:text-white">
@@ -105,7 +108,7 @@ function Navbar() {
 
         {/* Navegación desktop */}
         <nav
-          aria-label="Navegación principal"
+          aria-label={t("nav.label")}
           className="hidden items-center gap-7 md:flex lg:gap-9"
         >
           {NAV_ITEMS.map((item) => {
@@ -124,7 +127,7 @@ function Navbar() {
                     : "text-[#64748B] hover:text-[#0F172A] dark:text-[#9BA6B5] dark:hover:text-white"
                 }`}
               >
-                {item.label}
+                {t(`nav.${item.key}`)}
                 {isActive && (
                   <motion.span
                     layoutId="nav-active-indicator"
@@ -145,8 +148,12 @@ function Navbar() {
           })}
         </nav>
 
-        {/* Acciones derecha: Theme toggle + CTA desktop + hamburguesa móvil */}
+        {/* Acciones derecha: Language + Theme toggle + CTA desktop + hamburguesa móvil */}
         <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="hidden sm:flex">
+            <LanguageSelector />
+          </div>
+
           <ThemeToggle />
 
           {/* CTA desktop */}
@@ -158,7 +165,7 @@ function Navbar() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="group hidden h-10 items-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:hover:shadow-[0_0_26px_rgba(37,99,235,0.22)] dark:focus-visible:ring-offset-[#0B1018] md:inline-flex"
           >
-            Get in touch
+            {t("nav.getInTouch")}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
           </motion.a>
 
@@ -166,7 +173,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={isMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#E2E8F0] bg-white text-[#0F172A] transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 dark:border-white/10 dark:bg-[#0B1018] dark:text-[#F5F7FA] dark:hover:bg-[#111A2A] md:hidden"
@@ -181,7 +188,7 @@ function Navbar() {
         {isMenuOpen && (
           <motion.nav
             id="mobile-menu"
-            aria-label="Menú móvil"
+            aria-label={t("nav.mobileLabel")}
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -212,7 +219,7 @@ function Navbar() {
                           : "text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A] dark:text-[#9BA6B5] dark:hover:bg-[#111A2A] dark:hover:text-white"
                       }`}
                     >
-                      {item.label}
+                      {t(`nav.${item.key}`)}
                       {isActive && (
                         <span className="h-[6px] w-[6px] rounded-full bg-[#2563EB]" />
                       )}
@@ -221,13 +228,16 @@ function Navbar() {
                 );
               })}
             </ul>
+            <div className="flex items-center justify-center px-2 pt-3">
+              <LanguageSelector />
+            </div>
             <div className="p-2 pt-1">
               <a
                 href="#system-ready"
                 onClick={(event) => handleNavigate(event, "system-ready")}
                 className="group flex h-11 items-center justify-center gap-2 rounded-[10px] bg-[#0F172A] px-5 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:hover:shadow-[0_0_26px_rgba(37,99,235,0.22)]"
               >
-                Get in touch
+                {t("nav.getInTouch")}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
               </a>
             </div>

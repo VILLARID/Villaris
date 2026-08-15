@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { fadeSlide, staggerContainer } from "../../utils/motion";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function GithubIcon() {
   return (
@@ -48,6 +49,8 @@ function ContactRow({ icon, label, value, href, accent = "blue" }) {
 }
 
 function ContactCard({ emailHref, githubHref, linkedinHref }) {
+  const { t } = useLanguage();
+
   return (
     <motion.aside
       initial={{ opacity: 0, x: 24 }}
@@ -57,7 +60,7 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
       className="rounded-[20px] border border-[rgba(226,232,240,0.95)] bg-[rgba(255,255,255,0.92)] p-9 shadow-[0_16px_50px_rgba(15,23,42,0.06)] sm:p-10 dark:border-white/10 dark:bg-[rgba(11,17,26,0.92)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.4)]"
     >
       <h3 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#0F172A] dark:text-[#F5F7FA]">
-        CONTACT
+        {t("contactCard.heading")}
       </h3>
 
       {/* Detalles de contacto con stagger */}
@@ -69,13 +72,13 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
         className="mt-8 space-y-6"
       >
         <motion.div variants={fadeSlide(10)}>
-          <ContactRow icon={<Mail />} label="Email" value="Enviar correo" href={emailHref} />
+          <ContactRow icon={<Mail />} label={t("contactCard.emailLabel")} value={t("contactCard.emailValue")} href={emailHref} />
         </motion.div>
         <motion.div variants={fadeSlide(10)}>
-          <ContactRow icon={<LinkedinIcon />} label="LinkedIn" value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
+          <ContactRow icon={<LinkedinIcon />} label={t("contactCard.linkedinLabel")} value="linkedin.com/in/farid-matos-villarroel" href={linkedinHref} />
         </motion.div>
         <motion.div variants={fadeSlide(10)}>
-          <ContactRow icon={<GithubIcon />} label="GitHub" value="github.com/VILLARIS" href={githubHref} accent="github" />
+          <ContactRow icon={<GithubIcon />} label={t("contactCard.githubLabel")} value="github.com/VILLARIS" href={githubHref} accent="github" />
         </motion.div>
       </motion.div>
 
@@ -86,25 +89,25 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
       <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-3">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
-            Status
+            {t("contactCard.statusLabel")}
           </p>
           <p className="mt-1.5 flex items-center gap-2 text-[13px] font-semibold text-[#059669] dark:text-emerald-400">
             <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
-            Available for work
+            {t("contactCard.available")}
           </p>
         </div>
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
-            Location
+            {t("contactCard.locationLabel")}
           </p>
-          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">Perú</p>
+          <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">{t("contactCard.location")}</p>
         </div>
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
-            Response
+            {t("contactCard.responseLabel")}
           </p>
           <p className="mt-1.5 text-[13px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
-            Open to conversations
+            {t("contactCard.response")}
           </p>
         </div>
       </div>
@@ -116,7 +119,7 @@ function ContactCard({ emailHref, githubHref, linkedinHref }) {
         rel="noreferrer"
         className="group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold text-[#2563EB] transition-colors duration-200 hover:text-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md dark:text-[#60A5FA] dark:hover:text-[#93C5FD] dark:focus-visible:ring-offset-[#0B1018]"
       >
-        SEND ME AN EMAIL
+        {t("contactCard.sendEmail")}
         <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
       </a>
     </motion.aside>

@@ -4,8 +4,10 @@ import ContactCard from "../components/Contact/ContactCard";
 import SectionLabel from "../components/ui/SectionLabel";
 import Reveal from "../components/ui/Reveal";
 import cv from "../assets/cv_farid_fullstack_developer_2026.pdf";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function SystemReady() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const emailHref = "https://mail.google.com/mail/u/1/#inbox";
@@ -14,9 +16,9 @@ function SystemReady() {
     "https://www.linkedin.com/in/farid-matos-villarroel-1274a9408/";
 
   const socialLinks = [
-    { label: "GITHUB", href: githubHref, icon: <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />, external: true },
-    { label: "LINKEDIN", href: linkedinHref, icon: <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />, external: true },
-    { label: "DOWNLOAD CV", href: cv, icon: <ArrowDown className="h-3.5 w-3.5" aria-hidden="true" />, download: true },
+    { key: "github", href: githubHref, icon: <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />, external: true },
+    { key: "linkedin", href: linkedinHref, icon: <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />, external: true },
+    { key: "downloadCv", href: cv, icon: <ArrowDown className="h-3.5 w-3.5" aria-hidden="true" />, download: true },
   ];
 
   return (
@@ -36,7 +38,7 @@ function SystemReady() {
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
           {/* LEFT */}
           <div className="flex min-w-0 flex-col">
-            <SectionLabel number="04" label="CONTACT" />
+            <SectionLabel number="04" label={t("contact.label")} />
 
             <Reveal
               as="h2"
@@ -44,8 +46,8 @@ function SystemReady() {
               duration={0.8}
               className="mt-7 text-[clamp(3rem,5vw,5.8rem)] font-bold leading-[0.96] tracking-[-0.04em]"
             >
-              <span className="block text-[#0F172A] dark:text-[#F5F7FA]">LET'S BUILD</span>
-              <span className="block text-[#2563EB]">SOMETHING GREAT.</span>
+              <span className="block text-[#0F172A] dark:text-[#F5F7FA]">{t("contact.letsBuild")}</span>
+              <span className="block text-[#2563EB]">{t("contact.somethingGreat")}</span>
             </Reveal>
 
             <Reveal
@@ -53,8 +55,7 @@ function SystemReady() {
               delay={0.08}
               className="mt-8 max-w-[600px] text-[16px] leading-[1.7] text-[#64748B] dark:text-[#9BA6B5] sm:text-[17px]"
             >
-              ¿Tienes una idea, un proyecto o simplemente quieres conversar sobre
-              tecnología? Escríbeme y veamos qué podemos construir.
+              {t("contact.intro")}
             </Reveal>
 
             {/* CTA */}
@@ -68,7 +69,7 @@ function SystemReady() {
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="group inline-flex h-[54px] items-center gap-2.5 rounded-xl bg-[#0F172A] px-6 text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:hover:shadow-[0_0_28px_rgba(37,99,235,0.22)] dark:focus-visible:ring-offset-[#070B11]"
               >
-                GET IN TOUCH
+                {t("contact.getInTouch")}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[3px]" />
               </motion.a>
             </Reveal>
@@ -80,7 +81,7 @@ function SystemReady() {
               className="mt-10 flex flex-wrap items-center gap-x-9 gap-y-4"
             >
               {socialLinks.map((link, index) => (
-                <span key={link.label} className="flex items-center gap-x-9">
+                <span key={link.key} className="flex items-center gap-x-9">
                   {index > 0 && (
                     <span aria-hidden="true" className="h-[18px] w-px bg-[#E2E8F0] dark:bg-white/10" />
                   )}
@@ -91,7 +92,7 @@ function SystemReady() {
                     download={link.download || undefined}
                     className="group flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.04em] text-[#334155] transition-colors duration-200 hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md dark:text-[#C7D0DC] dark:hover:text-white dark:focus-visible:ring-offset-[#070B11] sm:text-[13px]"
                   >
-                    {link.label}
+                    {t(`contact.social.${link.key}`)}
                     <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5">
                       {link.icon}
                     </span>
@@ -123,15 +124,15 @@ function SystemReady() {
               VILLARIS
             </p>
             <p className="mt-1 text-[13px] text-[#64748B] dark:text-[#9BA6B5]">
-              Farid Tabare Matos Villarroel
+              {t("footer.name")}
             </p>
           </div>
           <div className="sm:text-right">
             <p className="text-[14px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
-              Software Engineer
+              {t("footer.role")}
             </p>
             <p className="mt-1 text-[13px] text-[#64748B] dark:text-[#9BA6B5]">
-              Perú / {currentYear}
+              {t("footer.location")} / {currentYear}
             </p>
           </div>
         </Reveal>

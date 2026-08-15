@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import heroPhoto from "../../assets/Home/FaridHero.png";
 import { EASE } from "../../utils/motion";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const PULSE_STATUS = {
   y: [0, -6, 0],
@@ -58,6 +59,7 @@ function usePointerFine() {
 function HeroVisual() {
   const isPointerFine = usePointerFine();
   const isCompact = useCompact();
+  const { t } = useLanguage();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -178,12 +180,12 @@ function HeroVisual() {
           transition={{ ...pulseTransition, duration: 6 }}
         >
           <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#94A3B8] dark:text-[#7E8C9F]">
-            Status
+            {t("home.status")}
           </p>
           <div className="mt-1 flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#10B981]" />
             <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0F172A] dark:text-[#F5F7FA]">
-              Online
+              {t("home.online")}
             </p>
           </div>
         </motion.div>

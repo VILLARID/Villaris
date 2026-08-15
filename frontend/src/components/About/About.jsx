@@ -11,48 +11,23 @@ import {
 import SectionLabel from "../ui/SectionLabel";
 import PrincipleCard from "./PrincipleCard";
 import Reveal from "../ui/Reveal";
+import { useLanguage } from "../../i18n/LanguageContext";
 
-const metadata = [
-  { label: "LOCATION", value: "Perú", icon: MapPin },
-  { label: "AVAILABILITY", value: "Open to Work", icon: BriefcaseBusiness },
-  { label: "FOCUS", value: "Full Stack Dev", icon: Code2 },
-  { label: "MODE", value: "Remote / On-Site", icon: Monitor },
+const metadataConfig = [
+  { key: "location", icon: MapPin },
+  { key: "availability", icon: BriefcaseBusiness },
+  { key: "focus", icon: Code2 },
+  { key: "mode", icon: Monitor },
 ];
 
-const principles = [
-  {
-    title: "ARQUITECTURA PRIMERO",
-    description:
-      "Cada proyecto comienza con la arquitectura correcta. Los sistemas bien diseñados escalan; los demás solo funcionan por un tiempo.",
-    icon: Layers3,
-  },
-  {
-    title: "CÓDIGO LIMPIO",
-    description:
-      "El código que escribo hoy será mantenido mañana. Claridad, simplicidad y documentación no son opcionales.",
-    icon: Code2,
-  },
-  {
-    title: "SOLUCIONES REALES",
-    description:
-      "No construyo features. Construyo soluciones a problemas reales con tecnología elegante y resultados medibles.",
-    icon: Target,
-  },
-  {
-    title: "APRENDIZAJE CONTINUO",
-    description:
-      "La tecnología avanza rápido. Mantenerse actualizado no es una ventaja, es una responsabilidad profesional.",
-    icon: BookOpen,
-  },
-];
-
-const stats = [
-  { value: "3+", label: "Años de experiencia" },
-  { value: "10+", label: "Proyectos" },
-  { value: "12+", label: "Tecnologías" },
-];
+const principleIcons = [Layers3, Code2, Target, BookOpen];
 
 function About() {
+  const { t } = useLanguage();
+  const metadata = t("about.meta");
+  const principles = t("about.principles");
+  const stats = t("about.stats");
+
   return (
     <section id="about" className="relative overflow-hidden bg-white pt-6 pb-20 sm:pt-8 sm:pb-24 dark:bg-[#070B11]">
       {/* Fondo con grid y radial */}
@@ -62,7 +37,7 @@ function About() {
       <div className="relative z-10 mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-14 px-[clamp(28px,5vw,72px)] lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-16 xl:gap-20">
         {/* COLUMNA IZQUIERDA */}
         <div className="flex min-w-0 flex-col">
-          <SectionLabel number="01" label="ABOUT" />
+          <SectionLabel number="01" label={t("about.label")} />
 
           <Reveal
             as="h2"
@@ -70,7 +45,7 @@ function About() {
             duration={0.8}
             className="mt-7 text-[clamp(2.8rem,4.2vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#0F172A] dark:text-[#F5F7FA]"
           >
-            SOBRE MÍ
+            {t("about.heading")}
           </Reveal>
 
           <Reveal
@@ -78,7 +53,7 @@ function About() {
             delay={0.08}
             className="mt-5 text-[13px] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-[#9BA6B5]"
           >
-            Software Engineer / <span className="text-[#2563EB]">VILLARIS</span>
+            {t("about.eyebrow")} <span className="text-[#2563EB]">VILLARIS</span>
           </Reveal>
 
           <Reveal
@@ -86,16 +61,9 @@ function About() {
             delay={0.16}
             className="mt-8 max-w-[620px] space-y-5 text-[15px] leading-[1.75] text-slate-500 dark:text-[#9BA6B5] sm:text-[16px]"
           >
-            <p>
-              Desarrollador Full Stack enfocado en construir aplicaciones
-              escalables, sistemas eficientes y soluciones digitales utilizando
-              tecnologías modernas.
-            </p>
-            <p>
-              Combino visión técnica profunda con sensibilidad para el diseño,
-              creando productos que no solo funcionan, sino que se sienten
-              precisos y bien construidos.
-            </p>
+            {t("about.paragraphs").map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </Reveal>
 
           {/* Metadata 2x2 */}
@@ -104,21 +72,25 @@ function About() {
             delay={0.24}
             className="mt-10 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2"
           >
-            {metadata.map((meta) => (
-              <div key={meta.label} className="flex items-center gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EFF6FF] dark:bg-blue-500/15">
-                  <meta.icon className="h-[18px] w-[18px] text-[#2563EB]" strokeWidth={1.9} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
-                    {meta.label}
-                  </p>
-                  <p className="mt-0.5 truncate text-[14px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
-                    {meta.value}
-                  </p>
+            {metadataConfig.map((item, index) => {
+              const Icon = item.icon;
+              const meta = metadata[index];
+              return (
+                <div key={item.key} className="flex items-center gap-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EFF6FF] dark:bg-blue-500/15">
+                    <Icon className="h-[18px] w-[18px] text-[#2563EB]" strokeWidth={1.9} />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] dark:text-[#7E8C9F]">
+                      {meta.label}
+                    </p>
+                    <p className="mt-0.5 truncate text-[14px] font-semibold text-[#0F172A] dark:text-[#F5F7FA]">
+                      {meta.value}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Reveal>
 
           {/* Quote */}
@@ -130,9 +102,7 @@ function About() {
           >
             <Quote className="h-6 w-6 text-[#2563EB]/80" strokeWidth={1.6} />
             <p className="mt-4 text-[15px] font-medium leading-relaxed text-[#334155] dark:text-[#C7D0DC] sm:text-[16px]">
-              "La tecnología es el medio, pero la precisión es la firma. Cada
-              sistema que construyo busca resolver un problema real y dejar una
-              base sólida para lo que venga después."
+              "{t("about.quote")}"
             </p>
           </Reveal>
         </div>
@@ -146,12 +116,17 @@ function About() {
             className="flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.12em] text-[#0F172A] dark:text-[#F5F7FA]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />
-            Mis Principios
+            {t("about.principlesTitle")}
           </Reveal>
 
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {principles.map((principle, index) => (
-              <PrincipleCard key={principle.title} {...principle} index={index} />
+              <PrincipleCard
+                key={index}
+                icon={principleIcons[index]}
+                {...principle}
+                index={index}
+              />
             ))}
           </div>
         </div>

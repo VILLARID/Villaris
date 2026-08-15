@@ -5,6 +5,7 @@ import ProjectFilters from "../components/Project/ProjectFilters";
 import SectionLabel from "../components/ui/SectionLabel";
 import Reveal from "../components/ui/Reveal";
 import { getProjects } from "../services/projects.api";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const allLabel = "ALL";
 
@@ -41,6 +42,7 @@ function ProjectCardSkeleton() {
 }
 
 function ProjectArchive() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -130,7 +132,7 @@ function ProjectArchive() {
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-[clamp(28px,5vw,72px)]">
         {/* Header editorial (LEFT) */}
         <div className="max-w-[820px]">
-          <SectionLabel number="03" label="PROJECT ARCHIVE" />
+          <SectionLabel number="03" label={t("projects.label")} />
 
           <Reveal
             as="h2"
@@ -138,9 +140,13 @@ function ProjectArchive() {
             duration={0.8}
             className="mt-6 text-[clamp(2.8rem,4.6vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#0F172A] dark:text-[#F5F7FA]"
           >
-            PROJECT
-            <br />
-            ARCHIVE
+            {t("projects.heading")
+              .split("\n")
+              .map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
           </Reveal>
 
           <Reveal
@@ -148,7 +154,7 @@ function ProjectArchive() {
             delay={0.08}
             className="mt-5 text-[clamp(1.1rem,1.7vw,1.7rem)] font-medium tracking-[0.14em] text-[#2563EB]"
           >
-            SYSTEMS BUILT WITH PURPOSE
+            {t("projects.subtitle")}
           </Reveal>
 
           <Reveal
@@ -156,9 +162,7 @@ function ProjectArchive() {
             delay={0.16}
             className="mt-7 max-w-[620px] text-[15px] leading-[1.75] text-[#64748B] dark:text-[#9BA6B5] sm:text-[16px]"
           >
-            Una selección de sistemas, aplicaciones y herramientas que he
-            diseñado y construido de principio a fin: desde la interfaz hasta el
-            backend y los datos.
+            {t("projects.intro")}
           </Reveal>
         </div>
 
@@ -190,17 +194,17 @@ function ProjectArchive() {
               className="mx-auto max-w-[560px] rounded-2xl border border-[rgba(226,232,240,0.9)] bg-white p-10 text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] dark:border-white/10 dark:bg-[#0D131D] dark:shadow-none"
             >
               <p className="text-[15px] font-medium text-[#0F172A] dark:text-[#F5F7FA]">
-                Unable to load projects.
+                {t("projects.loadErrorTitle")}
               </p>
               <p className="mt-2 text-[13px] leading-relaxed text-[#64748B] dark:text-[#9BA6B5]">
-                The projects archive could not be reached. Please try again.
+                {t("projects.loadErrorBody")}
               </p>
               <button
                 type="button"
                 onClick={() => setReloadKey((key) => key + 1)}
                 className="mt-6 inline-flex h-10 items-center rounded-full bg-[#0F172A] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-200 hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border dark:border-blue-500/25 dark:bg-[#0F172A] dark:shadow-[0_0_20px_rgba(37,99,235,0.12)] dark:hover:bg-[#16203E] dark:focus-visible:ring-offset-[#070B11]"
               >
-                Retry
+                {t("projects.retry")}
               </button>
             </motion.div>
           ) : (
@@ -223,9 +227,9 @@ function ProjectArchive() {
                   className="py-16 text-center text-sm text-[#64748B] dark:text-[#9BA6B5]"
                 >
                   {showEmptyState
-                    ? "No projects available yet."
+                    ? t("projects.empty")
                     : showNoMatch
-                      ? "No hay proyectos que coincidan con tu búsqueda."
+                      ? t("projects.noMatch")
                       : ""}
                 </motion.p>
               )}

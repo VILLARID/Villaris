@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import { ArrowUp } from "lucide-react";
 import { EASE_OUT_EXPO, getScrollDuration } from "./utils/scrollUtils";
+import { useLanguage } from "./i18n/LanguageContext";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import CoreSystem from "./pages/CoreSystem";
@@ -12,6 +13,7 @@ import SystemReady from "./pages/SystemReady";
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const lenis = useLenis();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -36,7 +38,7 @@ function ScrollToTop() {
   return (
     <button
       onClick={handleScrollToTop}
-      aria-label="Volver arriba"
+      aria-label={t("ui.backToTop")}
       className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#0F172A] text-white shadow-[0_8px_30px_rgba(15,23,42,0.2)] transition-all duration-300 hover:bg-[#1E293B] hover:scale-105 dark:border dark:border-blue-500/30 dark:bg-[#0F172A] dark:shadow-[0_0_24px_rgba(37,99,235,0.18)] dark:hover:bg-[#16203E] ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       }`}

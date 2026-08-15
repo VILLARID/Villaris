@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import useCardTilt from "../../hooks/useCardTilt";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const accentConfigs = {
   blue: {
@@ -36,6 +37,7 @@ function ModuleCard({
 }) {
   const styles = accentConfigs[accent] || accentConfigs.blue;
   const { tilt, handlers } = useCardTilt();
+  const { t } = useLanguage();
 
   return (
     <motion.article
@@ -61,7 +63,7 @@ function ModuleCard({
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#ECFDF5] px-2.5 py-[5px] text-[10px] font-semibold tracking-[0.06em] text-[#047857] dark:bg-emerald-500/15 dark:text-emerald-300">
           <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
-          ACTIVE
+          {t("core.active")}
         </span>
       </div>
 

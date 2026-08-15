@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpDown, Search } from "lucide-react";
+import { useLanguage } from "../../i18n/LanguageContext";
+
+const ALL = "ALL";
 
 function ProjectFilters({
   categories,
@@ -10,6 +13,8 @@ function ProjectFilters({
   sort,
   onSortChange,
 }) {
+  const { t } = useLanguage();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -20,7 +25,7 @@ function ProjectFilters({
     >
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Categorías */}
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por categoría">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t("projects.filterGroupAria")}>
           {categories.map((category) => {
             const isActive = activeCategory === category;
             return (
@@ -35,7 +40,7 @@ function ProjectFilters({
                     : "border border-[#E2E8F0] bg-white text-[#64748B] hover:border-[#CBD5E1] hover:text-[#0F172A] dark:border-white/10 dark:bg-[#0D131D] dark:text-[#9BA6B5] dark:hover:border-white/20 dark:hover:text-white"
                 }`}
               >
-                {category}
+                {category === ALL ? t("projects.all") : category}
               </button>
             );
           })}
@@ -52,8 +57,8 @@ function ProjectFilters({
               type="search"
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="Search projects..."
-              aria-label="Buscar proyectos"
+              placeholder={t("projects.searchPlaceholder")}
+              aria-label={t("projects.searchAria")}
               className="h-9 w-full rounded-[10px] border border-[#E2E8F0] bg-white pl-9 pr-3 text-[13px] text-[#0F172A] placeholder:text-[#94A3B8] transition-colors duration-200 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-white/10 dark:bg-[#0D131D] dark:text-[#F5F7FA] dark:placeholder:text-[#7E8C9F] sm:w-[210px]"
             />
           </div>
@@ -62,12 +67,12 @@ function ProjectFilters({
             <select
               value={sort}
               onChange={(event) => onSortChange(event.target.value)}
-              aria-label="Ordenar proyectos"
+              aria-label={t("projects.sortAria")}
               className="h-9 w-full appearance-none rounded-[10px] border border-[#E2E8F0] bg-white pl-3 pr-9 text-[12px] font-medium text-[#0F172A] transition-colors duration-200 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-white/10 dark:bg-[#0D131D] dark:text-[#F5F7FA] sm:w-[150px]"
             >
-              <option value="latest">Latest</option>
-              <option value="oldest">Oldest</option>
-              <option value="az">A-Z</option>
+              <option value="latest">{t("projects.sortLatest")}</option>
+              <option value="oldest">{t("projects.sortOldest")}</option>
+              <option value="az">{t("projects.sortAZ")}</option>
             </select>
             <ArrowUpDown
               aria-hidden="true"

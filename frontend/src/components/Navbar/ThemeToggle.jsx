@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function getInitialTheme() {
   if (typeof window === "undefined") return "light";
@@ -17,6 +18,7 @@ function getInitialTheme() {
 
 function ThemeToggle() {
   const [theme, setTheme] = useState(getInitialTheme);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -35,7 +37,7 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={isDark ? t("theme.toLight") : t("theme.toDark")}
       className="group relative flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#E8EDF3] bg-white text-[#0F172A] shadow-sm transition-colors duration-200 hover:bg-[#F1F5F9] hover:text-[#1E3A8A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:bg-[#0B1018] dark:text-white dark:shadow-none dark:hover:bg-[#111A2A] dark:hover:text-[#60A5FA] dark:hover:shadow-[0_0_18px_rgba(37,99,235,0.15)] dark:focus-visible:ring-offset-[#0B1018]"
     >
       <AnimatePresence mode="wait" initial={false}>
